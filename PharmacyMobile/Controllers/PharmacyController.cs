@@ -710,6 +710,14 @@ namespace PharmacyMobile.Controllers
                 return Content(ex.Message + ex.StackTrace);
             }
         }
-        
+
+
+
+        [HttpPost]
+        public ActionResult SaveMatHang()
+        {            
+            return Json(new { success = false });
+        }
+
     }
 }
