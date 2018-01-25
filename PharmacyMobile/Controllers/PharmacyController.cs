@@ -94,10 +94,10 @@ namespace PharmacyMobile.Controllers
                         FilterStr = "Năm này";
                         break;
                     case "option":
-                        if (startDate != null && endDate != null && startDate.Value < endDate.Value)
+                        if (startDate != null && endDate != null && startDate.Value <= endDate.Value)
                         {
                             dateStart = startDate.Value;
-                            dateEnd = endDate.Value;
+                            dateEnd = endDate.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
                             FilterStr = "Tuỳ chọn";
                             break;
                         }
@@ -564,7 +564,7 @@ namespace PharmacyMobile.Controllers
                 switch (TypeView)
                 {
                     case "today":
-                        dateStart = now;
+                        dateStart = now.Date;
                         dateEnd = now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
                         FilterStr = "Hôm nay";
                         break;
@@ -579,10 +579,10 @@ namespace PharmacyMobile.Controllers
                         FilterStr = "Năm này";
                         break;
                     case "option":
-                        if(startDate != null && endDate != null && startDate.Value < endDate.Value)
+                        if(startDate != null && endDate != null && startDate.Value <= endDate.Value)
                         {
                             dateStart = startDate.Value;
-                            dateEnd = endDate.Value;
+                            dateEnd = endDate.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
                             FilterStr = "Tuỳ chọn";
                             break;
                         }
