@@ -27,8 +27,8 @@ namespace PharmacyMobile.Controllers
                 if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
                 {
                     string TenNguoiDung = "User Login";
-                    if (Username != null && Password != null && Username == "admin" && Password == "admin")
-                    //if (Username != null && Password != null && cls_USERS_MOBILE.Login(Username, Password, out TenNguoiDung))
+                    //if (Username != null && Password != null && Username == "admin" && Password == "admin")
+                    if (Username != null && Password != null && cls_USERS_MOBILE.Login(Username, Password, out TenNguoiDung))
                     {
                         return Json(new { success = true, TEN_NGUOI_DUNG = TenNguoiDung });
                     }
@@ -78,11 +78,6 @@ namespace PharmacyMobile.Controllers
                 string FilterStr = "Hôm nay";
                 switch (TypeView)
                 {
-                    case "today":
-                        dateStart = now;
-                        dateEnd = now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-                        FilterStr = "Hôm nay";
-                        break;
                     case "thismonth":
                         dateStart = new DateTime(now.Year, now.Month, 1);
                         dateEnd = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
@@ -102,8 +97,13 @@ namespace PharmacyMobile.Controllers
                             break;
                         }
                         else return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+
+                    case "today":
                     default:
-                        return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                        dateStart = now;
+                        dateEnd = now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                        FilterStr = "Hôm nay";
+                        break;
                 }
 
                 DataTable dt = cls_SALES_REPORT.mSales_SumStores(dateStart, dateEnd);
@@ -736,22 +736,15 @@ namespace PharmacyMobile.Controllers
         {
             try
             {
-                DataTable dtHangHang = cls_GOODS_QUERY.HangHang_Lookup();
                 DataTable dtLoaiHang = cls_GOODS_QUERY.LoaiHang_Lookup();
-                DataTable dtKieuHang = cls_GOODS_QUERY.TypeHang_Lookup();
                 DataTable dtNhomHang = cls_GOODS_QUERY.NhomHang_Lookup();
-                DataTable dtXuatXu = cls_GOODS_QUERY.NhaNuoc_Lookup();
-
-                List<Dictionary<string, object>> lstHangHang = DataTableToJSONWithJSONNet(dtHangHang, new string[] { "KEY_HANG_HANG", "TEN_HANG_HANG", "MA_HANG_HANG" });
+                
                 List<Dictionary<string, object>> lstLoaiHang = DataTableToJSONWithJSONNet(dtLoaiHang, new string[] { "KEY_LOAI_HANG", "TEN_LOAI_HANG", "MA_LOAI_HANG" });
-                List<Dictionary<string, object>> lstKieuHang = DataTableToJSONWithJSONNet(dtKieuHang, new string[] { "KEY_TYPE_HANG", "TEN_TYPE_HANG", "MA_TYPE_HANG" });
                 List<Dictionary<string, object>> lstNhomHang = DataTableToJSONWithJSONNet(dtNhomHang, new string[] { "KEY_NHOM_HANG", "TEN_NHOM_HANG", "MA_NHOM_HANG" });
-                List<Dictionary<string, object>> lstXuatXu = DataTableToJSONWithJSONNet(dtXuatXu, new string[] { "KEY_NHA_NUOC", "TEN_NHA_NUOC", "MA_NHA_NUOC" });
 
                 return Json(new { success = true, result = new {
-                    lstHangHang = lstHangHang, lstLoaiHang = lstLoaiHang,
-                    lstKieuHang = lstKieuHang, lstNhomHang = lstNhomHang,
-                    lstXuatXu = lstXuatXu
+                    lstLoaiHang = lstLoaiHang,
+                    lstNhomHang = lstNhomHang
                 } }, JsonRequestBehavior.AllowGet);
             } catch (Exception ex)
             {
@@ -768,7 +761,7 @@ namespace PharmacyMobile.Controllers
                 List<string> Errors = item.CheckValid();
                 if(Errors.Count == 0)
                 {
-                    int result = cls_GOODS_QUERY.mGoods_InsertNew(item.loaihang.Value, item.kieuhang.Value, item.nhomhang.Value, item.xuatxu.Value, item.hanghang.Value,
+                    int result = cls_GOODS_QUERY.mGoods_InsertNew(item.loaihang.Value, item.nhomhang.Value,
                                                     Guid.NewGuid(), item.mamathang, item.masanxuat, item.tenmathang, item.donvitinh, item.donvitinhlon,
                                                     item.soquydoi.Value, item.tilegiamgia.Value, item.hesothue.Value, item.tiletienlai.Value, item.hangkedon.Value, item.hangdacbiet.Value,
                                                     item.hangkigui.Value, item.dongiamua.Value, item.giabanle.Value, item.giabansi.Value, item.ghichu, item.hamluong,
@@ -796,12 +789,44 @@ namespace PharmacyMobile.Controllers
                 {
                     foreach (DataRow item in dt.Rows)
                     {
-                        lstResult.Add(new { COD_CARD_CLIENT = (item["COD_CARD_CLIENT"]), TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"], TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"]
+                        lstResult.Add(new {
+                            KEY_CARD_CLIENT = (item["KEY_CARD_CLIENT"]), COD_CARD_CLIENT = (item["COD_CARD_CLIENT"]), TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"], TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"]
                                             ,ADD_CARD_CLIENT = item["ADD_CARD_CLIENT"]
                         });
                     }
                 }
                 return Json(new { success = true, result = lstResult }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LoadDataChiTietKhachHang(string id)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                DataTable dt = cls_CARDS_CLIENT.mClient_GetoneClient(new Guid(id));
+                List<object> lstResult = new List<object>();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow item = dt.Rows[0];
+                    object result = new
+                    {
+                        KEY_CARD_CLIENT = (Guid)(item["KEY_CARD_CLIENT"]),
+                        COD_CARD_CLIENT = item["COD_CARD_CLIENT"],
+                        TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"],
+                        SEX_CARD_CLIENT = item["SEX_CARD_CLIENT"],
+                        BIR_CARD_CLIENT = ((DateTime)item["BIR_CARD_CLIENT"]).ToString("dd-MM-yyyy"),
+                        TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"],
+                        EML_CARD_CLIENT = item["EML_CARD_CLIENT"],
+                        ADD_CARD_CLIENT = item["ADD_CARD_CLIENT"],
+                        ORG_CARD_CLIENT = item["ORG_CARD_CLIENT"],
+                        BAN_CARD_CLIENT = item["BAN_CARD_CLIENT"],
+                        DOI_CARD_CLIENT = item["DOI_CARD_CLIENT"],
+                        CON_CARD_CLIENT = item["CON_CARD_CLIENT"]
+                    };
+
+                    return Json(new { success = true, result = result }, JsonRequestBehavior.AllowGet);
+                }
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -829,6 +854,205 @@ namespace PharmacyMobile.Controllers
             else return Json(new { success = false, msg = "Đã có lỗi xảy ra (DATA_FAIL). Vui lòng kiểm tra dữ liệu và thử lại." });
         }
 
+        [System.Web.Mvc.HttpPost]
+        public ActionResult LoadDataGiaoCaTime(string TypeView, DateTime? startDate, DateTime? endDate)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                DateTime now = DateTime.Now.Date;
+                DateTime dateStart = DateTime.Now;
+                DateTime dateEnd = DateTime.Now;
+                string FilterStr = "Hôm nay";
+                switch (TypeView)
+                {
+                    case "thismonth":
+                        dateStart = new DateTime(now.Year, now.Month, 1);
+                        dateEnd = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
+                        FilterStr = "Tháng này";
+                        break;
+                    case "thisyear":
+                        dateStart = new DateTime(now.Year, 1, 1);
+                        dateEnd = new DateTime(now.Year, 12, DateTime.DaysInMonth(now.Year, 12), 23, 59, 59);
+                        FilterStr = "Năm này";
+                        break;
+                    case "option":
+                        if (startDate != null && endDate != null && startDate.Value <= endDate.Value)
+                        {
+                            dateStart = startDate.Value;
+                            dateEnd = endDate.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
+                            FilterStr = "Tuỳ chọn";
+                            break;
+                        }
+                        else return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+
+                    case "today":
+                    default:
+                        dateStart = now;
+                        dateEnd = now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                        FilterStr = "Hôm nay";
+                        break;
+                }
+
+                DataTable dt = cls_CASHS_DELIVE.mCashs_SumBrand(dateStart, dateEnd);
+                List<object> lstResult = new List<object>();
+                if (dt != null)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        lstResult.Add(new
+                        {
+                            PHARMACY_ID = (Guid)(item["KEY_CHI_NHANH"]),
+                            PHARMACY_NAME = item["TEN_CHI_NHANH"],
+                            SO_TIEN = item["THU_TIEN_GIAO"],
+                            DATE_START = dateStart.ToString("dd-MM-yyyy"),
+                            DATE_END = dateEnd.ToString("dd-MM-yyyy"),
+                            TYPE_VIEW = TypeView
+                        });
+                    }
+                }
+                return Json(new
+                {
+                    success = true,
+                    FILTER_STR = FilterStr,
+                    result = lstResult
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult LoadDataChiTietGiaoCaTime(string IDchinhanh, string TypeView, DateTime? startDate, DateTime? endDate)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                DateTime now = DateTime.Now.Date;
+                DateTime dateStart = DateTime.Now;
+                DateTime dateEnd = DateTime.Now;
+                string FilterStr = string.Format("Hôm nay ({0})", now.ToString("dd-MM-yyyy")) ;
+                switch (TypeView)
+                {
+                    case "thismonth":
+                        dateStart = new DateTime(now.Year, now.Month, 1);
+                        dateEnd = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
+                        FilterStr = string.Format("Tháng này ({0} đến {1})", dateStart.ToString("dd-MM-yyyy"), dateEnd.ToString("dd-MM-yyyy"));
+                        break;
+                    case "thisyear":
+                        dateStart = new DateTime(now.Year, 1, 1);
+                        dateEnd = new DateTime(now.Year, 12, DateTime.DaysInMonth(now.Year, 12), 23, 59, 59);
+                        FilterStr = string.Format("Năm này ({0} đến {1})", dateStart.ToString("dd-MM-yyyy"), dateEnd.ToString("dd-MM-yyyy")); ;
+                        break;
+                    case "option":
+                        if (startDate != null && endDate != null && startDate.Value <= endDate.Value)
+                        {
+                            dateStart = startDate.Value;
+                            dateEnd = endDate.Value.AddHours(23).AddMinutes(59).AddSeconds(59);
+                            FilterStr = string.Format("{0} đến {1}", dateStart.ToString("dd-MM-yyyy"), dateEnd.ToString("dd-MM-yyyy")); ;
+                            break;
+                        }
+                        else return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+
+                    case "today":
+                    default:
+                        dateStart = now;
+                        dateEnd = now.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                        FilterStr = string.Format("Hôm nay ({0})", now.ToString("dd-MM-yyyy"));
+                        break;
+                }
+
+                DataTable dt = cls_CASHS_DELIVE.mCashs_OneBrand(new Guid(IDchinhanh), dateStart, dateEnd);
+                List<object> lstResult = new List<object>();
+                if (dt != null)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        lstResult.Add(new
+                        {
+                            PHARMACY_NAME = item["TEN_CHI_NHANH"],
+                            KEY_TIEN_GIAO = (Guid)(item["KEY_TIEN_GIAO"]),
+                            DUOC_SI = item["TEN_NGUOI_DUNG"],
+                            THU_NGAN = item["TEN_THU_NGAN"],
+                            SO_TIEN = item["THU_TIEN_GIAO"],
+                        });
+                    }
+                }
+                return Json(new
+                {
+                    success = true,
+                    FILTER_STR = FilterStr,
+                    result = lstResult
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        
+        public ActionResult LoadDataChiTietCa(string KeyTienGiao)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                DataTable dt = cls_CASHS_DELIVE.mCashs_OneShift(new Guid(KeyTienGiao));
+                List<object> lstResult = new List<object>();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow item = dt.Rows[0];
+                    return Json(new
+                    {
+                        success = true,
+                        result = new
+                        {
+                            PHARMACY_NAME = item["TEN_CHI_NHANH"],
+                            KEY_TIEN_GIAO = (Guid)(item["KEY_TIEN_GIAO"]),
+                            KEY_CHI_NHANH = item["KEY_CHI_NHANH"],
+                            KEY_THU_NGAN = item["KEY_THU_NGAN"],
+                            KEY_NGUOI_DUNG = item["KEY_NGUOI_DUNG"],
+                            DAY_TIEN_GIAO = ((DateTime)item["DAY_TIEN_GIAO"]).ToString("dd-MM-yyyy"),
+                            GIO_TIEN_GIAO = ((DateTime)item["GIO_TIEN_GIAO"]).ToString("HH:mm"),
+                            THU_NGAN = item["TEN_THU_NGAN"],
+                            DUOC_SI = item["TEN_NGUOI_DUNG"],
+                            BAN_TIEN_GIAO = item["BAN_TIEN_GIAO"],
+                            THU_TIEN_GIAO = item["THU_TIEN_GIAO"],
+                            THE_TIEN_GIAO = item["THE_TIEN_GIAO"],
+                            MAT_TIEN_GIAO = item["MAT_TIEN_GIAO"],
+                            KAC_TIEN_GIAO = item["KAC_TIEN_GIAO"],
+                            KET_TIEN_GIAO = item["KET_TIEN_GIAO"],
+                            CHI_TIEN_GIAO = item["CHI_TIEN_GIAO"],
+                            NOP_TIEN_GIAO = item["NOP_TIEN_GIAO"],
+                            CON_TIEN_GIAO = item["CON_TIEN_GIAO"]
+                        }
+                    }, JsonRequestBehavior.AllowGet);
+                }                
+
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult GetDoanhSo(string KeyChiNhanh, string KeyThuNgan, string KeyNguoiDung, DateTime? DateDoanhSo)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                DateTime dateEnd = DateDoanhSo.Value.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+                decimal DoanSoBan = cls_CASHS_DELIVE.mCashs_SumSales(new Guid(KeyChiNhanh), new Guid(KeyThuNgan), new Guid(KeyNguoiDung), DateDoanhSo.Value, dateEnd);
+                return Json(new { success = true, result = DoanSoBan }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [System.Web.Mvc.HttpPost]
+        public ActionResult DuyetKiemTraTien(string KeyTienGiao, decimal? DoanhSo)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                int result = cls_CASHS_DELIVE.mCashs_Confirms(new Guid(KeyTienGiao), DoanhSo.Value, true);
+                if (result == 0) return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                else return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 
     public class KHACH_HANG
@@ -853,7 +1077,12 @@ namespace PharmacyMobile.Controllers
                 string gioitinh = FormData["gioitinh"];
                 if (!string.IsNullOrEmpty(gioitinh)) this.gioitinh = gioitinh;
                 string ngaysinh = FormData["ngaysinh"];
-                if (!string.IsNullOrEmpty(ngaysinh)) this.ngaysinh = DateTime.Parse(ngaysinh);
+                string thangsinh = FormData["thangsinh"];
+                string namsinh = FormData["namsinh"];
+                if (!string.IsNullOrEmpty(ngaysinh) && !string.IsNullOrEmpty(thangsinh) && !string.IsNullOrEmpty(namsinh))
+                {
+                    this.ngaysinh = new DateTime(int.Parse(namsinh), int.Parse(thangsinh), int.Parse(ngaysinh));
+                }
                 else this.ngaysinh = null;
                 string dienthoai = FormData["dienthoai"];
                 if (!string.IsNullOrEmpty(dienthoai)) this.dienthoai = dienthoai;
@@ -877,11 +1106,9 @@ namespace PharmacyMobile.Controllers
             List<string> lstError = new List<string>();
             if (code == null) lstError.Add("Mã code");
             if (hoten == null) lstError.Add("Họ tên khách hàng");
+            //if (ngaysinh == null) lstError.Add("Ngày sinh");
             if (gioitinh == null) lstError.Add("Giới tính");
             if (dienthoai == null) lstError.Add("Số điệnt thoại");
-            if (email == null) lstError.Add("Email");
-            if (diachi == null) lstError.Add("Địa chỉ");
-            if (congty == null) lstError.Add("Công ty");
 
             return lstError;
         }
@@ -1020,4 +1247,5 @@ namespace PharmacyMobile.Controllers
             return lstError;
         }
     }
+        
 }
