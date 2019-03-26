@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Administrators CHT REAL</title>
+    <meta name="description" content="CHT REAL.">
+    <meta name="author" content="CHT REAL">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <!-- Stylesheets -->
+    <!-- Bootstrap is included in its original form, unaltered -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Related styles of various icon packs and plugins -->
+    <link rel="stylesheet" href="/css/plugins.css">
+    <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- The themes stylesheet of this template (for using specific theme color in individual elements - must included last) -->
+    <link rel="stylesheet" href="/css/themes.css">
+    <link rel="stylesheet" href="~/css/cropper.css">
+    <link rel="stylesheet" href="/css/lightbox.min.css">
+    <!-- END Stylesheets -->
+    <!-- Modernizr (browser feature detection library) -->
+    <script type="text/javascript" src="/js/vendor/modernizr.min.js"></script>
+
+
+    <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
+    <script src="/js/jquery-1.10.2.js"></script>
+    <script src="/js/popper.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/plugins.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+
+    <script type="text/javascript" src="/js/jquery.tmpl.js"></script>
+    <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/js/ckfinder/ckfinder.js"></script>
+
+    <script src="/js/jquery-ui.min.js"></script>
+
+    <script src="/js/dropzone.js"></script>
+    <script src="/js/jquery.ellipsis.min.js"></script>
+    <script src="/js/lightbox.min.js"></script>
+    <script src="/js/jquery.number.min.js"></script>
+    <script type="text/javascript" src="/js/cropper.js"></script>
+
+
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script src="/js/ModuleViewJs.js"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div id="page-container" class="sidebar-partial sidebar-visible-lg sidebar-no-animations">
+            <!-- Alternative Sidebar -->
+            <div id="sidebar-alt">
+                <!-- Wrapper for scrolling functionality -->
+                <div id="sidebar-alt-scroll">
+                </div>
+                <!-- END Wrapper for scrolling functionality -->
+            </div>
+            <!-- END Alternative Sidebar -->
+            <!-- Main Sidebar -->
+            <div id="sidebar">
+                <!-- Wrapper for scrolling functionality -->
+                <div id="sidebar-scroll">
+                    <!-- Sidebar Content -->
+                    <div class="sidebar-content">
+                        <!-- Brand -->
+                        <a href="/configs" class="sidebar-brand">
+                            <span class="sidebar-nav-mini-hide"><strong class="text-nowrap">Configuration</strong></span>
+                        </a>
+                        <!-- END Brand -->
+                        <!-- User Info -->
+                        <div class="sidebar-section sidebar-user clearfix sidebar-nav-mini-hide">
+                            <div class="sidebar-user-avatar">
+                                <a href="/admin/manage/">
+                                    <img src="/img/no-image.jpg" alt="avatar">
+                                </a>
+
+                            </div>
+
+                            <div class="sidebar-user-name text-nowrap" style="overflow: hidden;">Configuration</div>
+                            <div class="sidebar-user-links">
+                                <a href="/admin/useradmin/logout" data-toggle="tooltip" data-placement="bottom" title="Đăng xuất"><i class="gi gi-exit"></i></a>
+                            </div>
+                        </div>
+                        <!-- END User Info -->
+                        <!-- Sidebar Navigation -->
+                        <ul class="sidebar-nav">
+                            <li>
+                                <a href="/configs">
+                                    <i class="gi gi-settings sidebar-nav-icon"></i>
+                                    <span class="sidebar-nav-mini-hide">Configuration</span>
+                                </a>
+                            </li>
+                            
+                        </ul>
+                        <!-- END Sidebar Navigation -->
+                        <!-- END Sidebar Notifications -->
+                    </div>
+                    <!-- END Sidebar Content -->
+                </div>
+                <!-- END Wrapper for scrolling functionality -->
+            </div>
+            <!-- END Main Sidebar -->
+            <!-- Main Container -->
+            <div id="main-container">
+                <header class="navbar navbar-default">
+                    <!-- Left Header Navigation -->
+                    <ul class="nav navbar-nav-custom">
+                        <!-- Main Sidebar Toggle Button -->
+                        <li>
+                            <a href="javascript:void(0)" onclick="App.sidebar('toggle-sidebar');this.blur();">
+                                <i class="fa fa-bars fa-fw"></i>
+                            </a>
+                        </li>
+                        <!-- END Main Sidebar Toggle Button -->
+                    </ul>
+                    <!-- END Left Header Navigation -->
+                    <!-- Search Form -->
+                    <div class="navbar-form-custom">
+                        <div class="form-group text-nowrap" style="padding-top: 12px; font-size: 18px;">
+                            
+                        </div>
+                    </div>
+                    <!-- END Search Form -->
+                    <!-- Right Header Navigation -->
+                    <ul class="nav navbar-nav-custom pull-right">
+
+                        <!-- User Dropdown -->
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="/img/no-image.jpg" alt="avatar"> <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-custom dropdown-menu-right" style="left: auto; right: 0;">
+                                <li class="dropdown-header text-center">Tài khoản</li>
+
+                                <li>
+                                    <a href="/admin/useradmin/logout"><i class="fa fa-ban fa-fw pull-right"></i> Đăng xuất</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END User Dropdown -->
+                    </ul>
+                    <!-- END Right Header Navigation -->
+                </header>
+                <!-- END Header -->
+                <!-- Page content -->
+                <div id="page-content">
+
+                    @RenderBody()
+                </div>
+                <!-- END Page Content -->
+                <!-- Footer -->
+                <footer class="clearfix">
+                    <div class="pull-right">
+                        Crafted with <i class="fa fa-heart text-danger"></i> by <a href="http://goo.gl/vNS3I" target="_blank">pixelcave</a>
+                    </div>
+                    <div class="pull-left">
+                        <span id="year-copy"></span> &copy; <a href="http://goo.gl/TDOSuC" target="_blank">ProUI 3.8</a>
+                    </div>
+                </footer>
+                <!-- END Footer -->
+            </div>
+            <!-- END Main Container -->
+        </div>
+        <!-- END Page Container -->
+    </div>
+    <!-- END Page Wrapper -->
+    <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
+    <a href="#" id="to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- User Settings, modal which opens from Settings link (found in top right user menu) and the Cog link (found in sidebar user info) -->
+    <div id="modal-user-settings" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header text-center">
+                    <h2 class="modal-title"><i class="fa fa-pencil"></i> Settings</h2>
+                </div>
+                <!-- END Modal Header -->
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form action="index.html" method="post" enctype="multipart/form-data" class="form-horizontal form-bordered" onsubmit="return false;">
+                        <fieldset>
+                            <legend>Vital Info</legend>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Username</label>
+                                <div class="col-md-8">
+                                    <p class="form-control-static">Admin</p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="user-settings-email">Email</label>
+                                <div class="col-md-8">
+                                    <input type="email" id="user-settings-email" name="user-settings-email" class="form-control" value="admin@example.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="user-settings-notifications">Email Notifications</label>
+                                <div class="col-md-8">
+                                    <label class="switch switch-primary">
+                                        <input type="checkbox" id="user-settings-notifications" name="user-settings-notifications" value="1" checked>
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Password Update</legend>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="user-settings-password">New Password</label>
+                                <div class="col-md-8">
+                                    <input type="password" id="user-settings-password" name="user-settings-password" class="form-control" placeholder="Please choose a complex one..">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="user-settings-repassword">Confirm New Password</label>
+                                <div class="col-md-8">
+                                    <input type="password" id="user-settings-repassword" name="user-settings-repassword" class="form-control" placeholder="..and confirm it!">
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="form-group form-actions">
+                            <div class="col-xs-12 text-right">
+                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-sm btn-primary">Lưu lại</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- END Modal Body -->
+            </div>
+        </div>
+    </div>
+    <!-- END User Settings -->
+    <script>
+        $(function () {
+
+            // Initialize Tooltips
+            $('[data-toggle="tooltip"]').tooltip({ container: 'body', animation: true });
+            setTimeout(function () {
+                $('[data-toggle="tooltip"]').tooltip({ container: 'body', animation: true });
+            }, 1000);
+        });
+
+        $('input[type="file"]').change(function (e) {
+            var targetFileNameDisplay = $(this).data("filenamedisplay");
+            var inputfilename = $(this).data("inputfilename");
+            var btnDelete = $(this).data("buttondelete");
+            var btnPick = $(this).data("buttonpick");
+            var fileName = e.target.files[0].name;
+            $("#" + inputfilename).val(fileName);
+            $("#" + targetFileNameDisplay).text(fileName);
+            $("#" + btnDelete).show();
+            $("#" + btnPick).hide();
+            $("#" + targetFileNameDisplay).ellipsis({
+                row: 1,
+                onlyFullWords: false,
+                position: 'middle'
+            });
+        });
+
+        $(".btnDeleteAttach").click(function () {
+            if (confirm("Bạn chắc chắn xoá mục này?")) {
+                var targetFileNameDisplay = $(this).data("filenamedisplay");
+                var fileInput = $(this).data("fileinput");
+                var clearInput = $(this).data("clearinput");
+                var btnPick = $(this).data("buttonpick");
+                var btnDelete = $(this).data("buttondelete");
+                $("#" + targetFileNameDisplay).text("Chọn file..");
+                $(this).hide();
+                $("#" + btnPick).show();
+                $("#" + fileInput).val('');
+                $(clearInput).val('');
+            }
+        });
+
+        $('.number').number(true, 0);
+        $('.number1').number(true, 1);
+        $('.number2').number(true, 2);
+
+    </script>
+</body>
+</html>

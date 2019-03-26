@@ -1,0 +1,136 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E44F5780-DD85-43E0-BF09-E82090E752E0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sonetwsv</RootNamespace>
+    <AssemblyName>Sonetwsv</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\clsConnect.cs" />
+    <Compile Include="Mobileap\cls_2018_CLIENT.cs" />
+    <Compile Include="Mobileap\cls_2018_ORDERS.cs" />
+    <Compile Include="Mobileap\cls_2018_EVENTS.cs" />
+    <Compile Include="Mobileap\cls_2018_GOODS.cs" />
+    <Compile Include="Mobilews\cls_CARDS_CLIENT.cs" />
+    <Compile Include="Mobilews\cls_CASHS_DELIVE.cs" />
+    <Compile Include="Mobilews\cls_GOODS_QUERY.cs" />
+    <Compile Include="Mobilews\cls_SALES_REPORT.cs" />
+    <Compile Include="Mobilews\cls_STORE_REPORT.cs" />
+    <Compile Include="Mobilews\cls_USERS_MOBILE.cs" />
+    <Compile Include="Models\BANG_PRICE.cs" />
+    <Compile Include="Models\BANG_VON.cs" />
+    <Compile Include="Models\BAN_BILL.cs" />
+    <Compile Include="Models\BAN_HANG.cs" />
+    <Compile Include="Models\BGCHI_TIET.cs" />
+    <Compile Include="Models\CALL_HANG.cs" />
+    <Compile Include="Models\CARD_CLIENT.cs" />
+    <Compile Include="Models\CHIA_BAN.cs" />
+    <Compile Include="Models\CHINH_GIA.cs" />
+    <Compile Include="Models\CHI_NHANH.cs" />
+    <Compile Include="Models\CHUC_NANG.cs" />
+    <Compile Include="Models\CHUNG_TU.cs" />
+    <Compile Include="Models\DIEU_HANG.cs" />
+    <Compile Include="Models\DIEU_NHAP.cs" />
+    <Compile Include="Models\DON_INFOR.cs" />
+    <Compile Include="Models\DON_XUAT.cs" />
+    <Compile Include="Models\DUNO_KHACH.cs" />
+    <Compile Include="Models\DUYET_GIA.cs" />
+    <Compile Include="Models\GIAO_DICH.cs" />
+    <Compile Include="Models\KHACH_HANG.cs" />
+    <Compile Include="Models\KHIEU_NAI.cs" />
+    <Compile Include="Models\KHOAN_MUC.cs" />
+    <Compile Include="Models\KHO_HANG.cs" />
+    <Compile Include="Models\LABEL_CODE.cs" />
+    <Compile Include="Models\LOAI_DICH.cs" />
+    <Compile Include="Models\LOAI_HANG.cs" />
+    <Compile Include="Models\MAT_HANG.cs" />
+    <Compile Include="Models\MOVE_HANG.cs" />
+    <Compile Include="Models\NEWS_EVENTS.cs" />
+    <Compile Include="Models\NGHIEP_VU.cs" />
+    <Compile Include="Models\NGOAI_TE.cs" />
+    <Compile Include="Models\NGUOI_BAN.cs" />
+    <Compile Include="Models\NGUOI_DUNG.cs" />
+    <Compile Include="Models\NHAN_HANG.cs" />
+    <Compile Include="Models\NHAP_XUAT.cs" />
+    <Compile Include="Models\NHIEM_VU.cs" />
+    <Compile Include="Models\NHOM_HANG.cs" />
+    <Compile Include="Models\NOI_DUNG.cs" />
+    <Compile Include="Models\ORDER_CLIENT.cs" />
+    <Compile Include="Models\ORDER_GOODS.cs" />
+    <Compile Include="Models\POS_CONFIG.cs" />
+    <Compile Include="Models\PUTIN_OUT.cs" />
+    <Compile Include="Models\QUAY_BAN.cs" />
+    <Compile Include="Models\QUA_TANG.cs" />
+    <Compile Include="Models\SODU_HANG.cs" />
+    <Compile Include="Models\SODU_KHACH.cs" />
+    <Compile Include="Models\TABLE_CLIENT.cs" />
+    <Compile Include="Models\TABLE_FLAGS.cs" />
+    <Compile Include="Models\TABLE_PEERS.cs" />
+    <Compile Include="Models\TABLE_SERVER.cs" />
+    <Compile Include="Models\THAM_SO.cs" />
+    <Compile Include="Models\THANG_DUBYT.cs" />
+    <Compile Include="Models\TIEN_GIAO.cs" />
+    <Compile Include="Models\TIEN_NOTE.cs" />
+    <Compile Include="Models\TIME_HOUR.cs" />
+    <Compile Include="Models\TRACK_EVENTS.cs" />
+    <Compile Include="Models\TRANG_THAI.cs" />
+    <Compile Include="Models\TRUNG_BAY.cs" />
+    <Compile Include="Models\UPD_BANG_PRICE.cs" />
+    <Compile Include="Models\UPD_BAN_BILL.cs" />
+    <Compile Include="Models\UPD_BAN_HANG.cs" />
+    <Compile Include="Models\UPD_BGCHI_TIET.cs" />
+    <Compile Include="Models\UPD_CHI_NHANH.cs" />
+    <Compile Include="Models\UPD_DUYET_GIA.cs" />
+    <Compile Include="Models\UPD_KHIEU_NAI.cs" />
+    <Compile Include="Models\UPD_NHAP_XUAT.cs" />
+    <Compile Include="Models\UPD_PUTIN_OUT.cs" />
+    <Compile Include="Models\UPD_TIEN_GIAO.cs" />
+    <Compile Include="Models\_BaseModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

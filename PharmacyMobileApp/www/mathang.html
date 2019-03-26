@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/ModuleViewer.js"></script>
+    <script src="js/jquery.ellipsis.js"></script>
+    <script src="js/jquery.number.js"></script>
+    <script src="js/jquery.tmpl.js"></script>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/vuePagination.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/connection.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Mặt hàng</title>
+</head>
+    <body>
+		
+		<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+            <div id="header-view">
+                <app-header></app-header>
+            </div>
+
+            <bottom-menu></bottom-menu>
+
+            <div class="main-content">
+                <div style="padding: 10px;position: fixed;z-index: 9999;margin-left: 50px;top: -1px;">
+                    <div class="input-group">
+                        <input type="text" id="querySearch" class="style-2" placeholder="Nhập tên hàng cần tìm ..." />
+                        <div class="input-group-btn">
+                            <button class="btn btn-success btn-lg"
+                                    style="padding: 4px 14px;outline: none !important;background-color: #118d3d;border-color: #118d3d;top: -1px;"
+                                    type="button"
+                                    onClick="LoadDataMatHang($('#querySearch').val());">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <section class="tb-section" style="padding-bottom: 0;">
+                    <div class="tb-container">
+                        <table class="table table-responsive tb-data first-col-color" style="font-size: 18px;">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <strong>Mã số</strong>
+                                        <div><strong>Mã số</strong></div>
+                                    </th>
+                                    <th>
+                                        <strong>Tên mặt hàng</strong>
+                                        <div><strong>Tên mặt hàng</strong></div>
+                                    </th>
+                                    <th class="nonbreak text-right">
+                                        <strong>Giá bán</strong>
+                                        <div><strong>Giá bán</strong></div>
+                                    </th>
+                                    <th class="text-right">
+                                        <strong>Hoạt chất</strong>
+                                        <div><strong>Hoạt chất</strong></div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="mathang_data">
+                                <tr style="background-color: #fed1d1 !important;">
+                                    <td class="text-nowrap"><a href="chitietmathang.html">324234</a></td>
+                                    <td class="text-nowrap"><a href="chitietmathang.html">MOB2683</a></td>
+                                    <td class="nonbreak text-right formatnumber"><a href="chitietmathang.html">50.000</a></td>
+                                    <td class="text-nowrap"><a href="chitietmathang.html">AMOXICILLIN 875mg, SULBACTAM 125 mg</a></td>
+                                </tr>
+                                <tr style="background-color: #fed1d1 !important;">
+                                    <td class="text-nowrap"><a href="chitietmathang.html">095670</a></td>
+                                    <td class="text-nowrap"><a href="chitietmathang.html">MOB8683</a></td>
+                                    <td class="nonbreak text-right formatnumber"><a href="chitietmathang.html">50.000</a></td>
+                                    <td class="text-nowrap"><a href="chitietmathang.html">AMOXICILLIN 875mg, SULBACTAM 125 mg</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+       <script id="mathang_tmpl" type="text/x-jQuery-tmpl">
+			<tr>
+				<td><a href="javascript:void(0);">${MA_SO}</a></td>
+				<td><a href="javascript:void(0);">${TEN_MAT_HANG}</a></td>
+				<td class="nonbreak text-right formatnumber"><a href="javascript:void(0);">${GIA_BAN_LE}</a></td>
+				<td><a href="javascript:void(0);">${HOAT_CHAT}</a></td>
+			</tr>
+		</script>
+      
+       <script src="scripts/LayoutComponent.js"></script>
+       <script src="js/application.js"></script>
+        <script type="text/javascript">
+			var application = new applicationJS();			
+			var MatHangJs = new ModuleViewerJs();
+//			MatHangJs.Init({
+//				urlSearch : HOST_DATA + "Pharmacy/LoadDataMatHang",
+//				dataContainer : "#mathang_data",
+//				dataTmpl : "#mathang_tmpl",
+//				numberOfCols : 4
+//			});
+			
+			function LoadDataMatHang(query)
+			{
+				MatHangJs.search(query, $.noop); 
+            }
+
+            var app = new Vue({
+                el: "#main",
+                data: {
+
+                }
+            });
+		</script>
+        
+    </body>
+</html>

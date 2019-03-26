@@ -1,0 +1,38 @@
+﻿var lang_us = {
+    "generic.home": "Home",
+    "generic.project": "Projects",
+    "generic.homelandsale": "Home land for sale",
+    "generic.homelandrent": "Home land for rent",
+    "generic.news": "News",
+    "generic.intro": "Introduction",
+    "generic.contact": "Contact",
+    "generic.latestnews": "Latest news",
+    "generic.typicalprojects": "Typical projects",
+    "generic.slide.viewdetail": "VIEW DETAIL",
+    "generic.slide.contact": "CONTACT",
+    "generic.home.emailsubcription": "Email subcription",
+    "generic.ChairmanMessage": "Chairman Message",
+    "generic.explorerealestate": "Explore real estate",
+    "generic.inanewway": "In a new way",
+    "generic.explorerealestateplaceholder": "Find no limit on roads, wards, districts ...",
+    "generic.contactintro": "Please contact <strong>CHT Real</strong> according to the information box below. We will respond to you as soon as possible.Sincerely thank you for your comments!",
+    "generic.searchfound": "Found",
+    "generic.searchcounttext": "search results for keywords",
+    "generic.gocnhincht": "Activities photo",
+    "generic.theodoifb": "Follow us",
+    "generic.registration": "Register",
+
+    "generic.right.categories": "Categories",
+    "generic.right.imageactivity": "CHT activities",
+    "generic.right.fbfollow": "Follow us",
+    "generic.right.highlightnews": "Highlight news",
+    "generic.filter.squarearea": "Square area",
+    "generic.filter.price": "Price",
+    "generic.filter.search": "Search",
+    "generic.display.nodata": "No display data available",
+    "generic.display.timework": "Working time",
+    "generic.display.thu2_6": "Monday - Friday",
+    "generic.display.cuoituan": "Saturday"
+}
+
+Terminologies.importDictionary('en-US', lang_us);

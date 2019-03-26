@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.ellipsis.js"></script>  
+        <script src="js/jquery.number.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script src="js/connection.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+        <title>Login</title>
+    </head>
+    <body style="background: #50a81e;position: absolute;height: 100%;width: 100%;">  
+       <div>
+        	<div class="text-center" style="margin-top: 50px;">
+        		<img alt="Brand" src="img/logo.png" style="height: 70px;max-width: 80%;">
+        		<div style="padding: 0 10%;">
+        			<h4 style="font-family: 'Tahoma'; color: #fff; margin-top: 30px;"><strong>Kết nối cộng đồng Phước Thiện</strong></h4>
+        			<p style="text-align: justify;font-family: 'Tahoma'; color: #fff;">
+        				Tham gia vào hệ thống, bạn dễ dàng tra cứu thông tin về thuốc, giá cả và đặt mua thuốc theo yêu cầu, được tư vấn sức khoẻ và hưởng nhiều chính sách ưu đã của chúng tôi.
+        			</p>
+        			<div style="margin-top: 30px;">
+        				<div class="group-google-input">      
+						  <input type="tel" required id="txtPhoneNumber" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" >
+						  <span class="highlight"></span>
+						  <span class="bar"></span>
+						  <label>Số điện thoại</label>
+						</div>
+       			
+       					<div class="text-justify">
+       						<table class="table table-responsive" style="border: none; width: 100%;">
+       							<tr style="border: none;">
+       								<td style="width: 1%;border: none; padding-left: 0; padding-right: 0;">
+       									<label class="checkbox-custom">
+											<input type="checkbox" id="checkReadTerm" style="display: none;" onChange="$('.btn-actionlogin').prop('disabled', !$(this).prop('checked'));" />
+											<i class="fa fa-check"></i>
+										</label>
+       								</td>
+       								<td class="text-justify" style="color: #fff;border: none;font-family: 'Tahoma'; padding-right: 0;">
+       									Tôi đồng ý với các <a style="color: #FFE795;" href="javascript:void(0);" data-toggle="modal" data-target="#mdTerm">Điều khoản & điều kiện</a> của nhà thuốc và <a style="color: #FFE795;" href="javascript:void(0);"  data-toggle="modal" data-target="#mdSecurity">Chính sách bảo mật</a>
+       									<div id="mdTerm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+											  <div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														  <div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 style="color: #28540f;font-weight: bold;" class="modal-title" id="myModalLabel">Điều khoản & điều kiện</h4>
+														  </div>
+														  <div class="modal-body" style="color: #333;">
+															 <p><em>Các điều khoản và điều kiện này được áp dụng khi bạn sử dụng và xem trang web của chúng tôi tại <u>www.nordangliaeducation.com/en/our-schools/vietnam/hanoi/bvis</u>. Việc bạn sử dụng trang web của chúng tôi đồng nghĩa với việc bạn chấp nhận các điều khoản và điều kiện dưới đây. Nếu bạn không nhất trí với những điều khoản và điều kiện này, xin vui lòng không sử dụng trang web này. Chúng tôi có thể cập nhật và/hoặc chỉnh sửa những điều khoản và điều kiện này vào bất cứ lúc nào mà không cần thông báo trước. Bạn có trách nhiệm xem lại những điều khoản này khi bạn ghé thăm và truy cập trang web của chúng tôi. Ngoài ra, sau khi đã thực hiện các thay đổi, nếu bạn vẫn tiếp tục sử dụng trang web của chúng tôi thì điều đó đồng nghĩa với việc bạn đã chấp nhận các điều khoản đó. &nbsp;Một số quy định của những điều khoản này có thể được thay thế bằng các thông báo pháp lý hoặc các điều khoản trên một số trang cụ thể của website.</em></p>
+
+															<p><strong><em>Quyền Sở hữu Trí tuệ</em></strong></p>
+
+															<p><em>Tổ chức Giáo dục Nord Anglia chịu trách nhiệm thiết kế trang web và nội dung của trang web. Bản quyền thuộc về chúng tôi. Không được cấp giấy phép hoặc quyền sử dụng bất kỳ bản quyền nào hiển thị trên trang web này mà không có sự chấp thuận trước bằng văn bản của chủ sở hữu bản quyền.</em></p>
+
+															<p><em>Bạn có thể in ra hoặc tải về nội dung trên trang web theo quy định của Đạo luật Thiết kế Bản quyền và Bằng sáng chế năm 1988 (đã sửa đổi) (phần 28 - 30) để có thể xem nội dung trên máy tính, thực hiện các nghiên cứu mang tính phi thương mại, nghiên cứu cá nhân, phê bình, đánh giá và báo cáo tin tức, với điều kiện là bạn không thay đổi nội dung bằng mọi cách và thừa nhận chúng tôi là tác giả kiêm chủ sở hữu bản quyền. Nghiêm cấm mọi hành vi sử dụng hoặc sao chép bất kỳ nội dung nào trên trang web, trừ khi được chúng tôi hoặc pháp luật cho phép.</em></p>
+
+
+
+														  </div>
+														  <div class="modal-footer">
+																<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+														  </div>
+													</div>
+											  </div>
+										</div>
+      								
+      									<div id="mdSecurity" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+											  <div class="modal-dialog modal-lg" role="document">
+													<div class="modal-content">
+														  <div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																<h4 style="color: #28540f;font-weight: bold;" class="modal-title" id="myModalLabel">Chính sách bảo mật</h4>
+														  </div>
+														  <div class="modal-body" style="color: #333;">
+															 <div class="vnt-noi-dung"><div><strong>1- Mục đích và phạm vi thu thập thông tin</strong></div>
+															<div>Thuật ngữ “Thông tin cá nhân” trong Chính Sách này nghĩa là thông tin nhận diện hoặc có khả năng nhận diện danh tính cá nhân của khách hàng. Những loại thông tin cá nhân mà chúng tôi xử lý (có thể khác nhau theo phạm vi quyền hạn dựa trên luật pháp hiện hành) bao gồm:</div>
+															<div>Tên công ty, cửa hàng, đơn vị kinh doanh, địa chỉ giao dịch, mã số thuế</div>
+															<div>Họ Tên, Số CMND, địa chỉ liên lạc</div>
+															<div>Email, số điện thoại di động, số điện thoại bàn</div>
+															<div>Chúng tôi luôn thông báo cho khách hàng biết về mục đích cụ thể nếu cần thu thập những thông tin cá nhân của khách hàng trên trang web này, và mọi thông tin đều phải được &nbsp;khách hàng tự nguyện cung cấp.</div>
+															<div>&nbsp;</div>
+															<div><strong>2- Phạm vi sử dụng thông tin</strong></div>
+															<div>Thông tin cá nhân thu thập được sẽ chỉ được sử dụng trong nội bộ công ty. TRUST.vn có thể công bố các thông tin cá nhân thu thập từ khách hàng cho bên thứ ba, như các đại lý của chúng tôi, các nhà cung cấp dịch vụ khác nhằm cung cấp dịch vụ tốt nhất cho khách hàng.</div>
+															<div>Khi cần thiết, chúng tôi có thể sử dụng những thông tin này để liên hệ trực tiếp với khách hàng dưới các hình thức như: gửi thư ngỏ, đơn đặt hàng, thư cảm ơn, thông tin về khuyến mãi và dịch vụ mới…</div>
+															<div>&nbsp;</div></div>
+														  </div>
+														  <div class="modal-footer">
+																<button type="button" class="btn btn-danger" data-dismiss="modal">Đóng</button>
+														  </div>
+													</div>
+											  </div>
+										</div>
+       								</td>
+       							</tr>
+       						</table>
+       					</div>
+        			</div>
+        			<div>
+        				<button type="button"  onClick="Login();" disabled
+        				 class="btn btn-block btn-actionlogin" style="margin-top: 15px;padding: 10px 3px;background-color: #FBC91E;border-color: #FBC91E;font-family: 'Tahoma';">
+        				 	ĐĂNG NHẬP VỚI SỐ ĐIỆN THOẠI
+						</button>
+       					<button type="button" onClick="showPromptCode();" disabled
+        				 class="btn btn-block btn-actionlogin" style="margin-top: 7px; margin-bottom: 20px;padding: 10px 3px;background-color: #50a81e;border-color: #50a81e; color:#fff;font-family: 'Tahoma';">
+        				 	ĐÃ CÓ MÃ XÁC NHẬN ? ĐĂNG NHẬP
+						</button>
+        			</div>
+        		</div>
+        	</div>
+        </div>     
+		<script src="js/application.js"></script>
+        <script>
+			var application = new applicationJS({
+				initCallback : function(){					
+					var storage = window.localStorage;
+					var IsLogin = storage.getItem("IsLogin");	
+					if(IsLogin || IsLogin=== "true")
+					{
+						window.location = "dashboard.html";
+						return;
+					}
+				}
+			});		
+			
+			function Login()
+			{
+				var storage = window.localStorage;
+				//storage.setItem("IsLogin", true);
+				//storage.setItem("TenNguoiDung", "Ha Duy");
+				//window.location = "dashboard.html";
+				//return;
+				
+				/////////////////////////////////////
+				
+				var isCheckTerm = $("#checkReadTerm").prop('checked');
+				if(!isCheckTerm){
+					navigator.notification.alert(
+						'Vui lòng xác nhận Điều khoản & điều kiện, chính sách bảo mật!', // message
+						null,            // callback to invoke with index of button pressed
+						'Lỗi',           // title
+						['OK']     // buttonLabels
+					);
+					return;
+				}
+				var PhoneNumber = $("#txtPhoneNumber").val();
+				if(PhoneNumber === null || PhoneNumber === ""){
+					navigator.notification.alert(
+						'Vui lòng nhập số điện thoại của bạn!', // message
+						null,            // callback to invoke with index of button pressed
+						'Lỗi',           // title
+						['OK']     // buttonLabels
+					);
+					return;
+				}
+				navigator.notification.confirm(
+					"Chúng tôi sẽ gửi cho bạn một mã gồm 6 số để thực hiện đăng nhập. Vui lòng kiểm tra tin nhắn trên điện thoại của quý khách", // message
+					function(buttonIndex){
+						if(buttonIndex===1){
+							SpinnerPlugin.activityStart("Vui lòng chờ...", { dimBackground: true });
+							$.post(HOST_DATA + "Pharmacy/Sendsmslogin", { PhoneNumber : PhoneNumber } , function( data ) {
+								if(data.success)
+								{								
+									SpinnerPlugin.activityStop();
+									showPromptCode();
+								}
+								else
+								{
+									SpinnerPlugin.activityStop();
+									navigator.notification.alert(
+										"Rất tiếc chúng tôi không thể gửi SMS ngay lúc này. Vui lòng thử lại sau !", // message
+										null,            // callback to invoke with index of button pressed
+										'Lỗi',           // title
+										['OK']     // buttonLabels
+									);
+									return;
+								}
+							}).fail(function() {
+								SpinnerPlugin.activityStop();
+								navigator.notification.alert(
+									"Rất tiếc chúng tôi không thể gửi SMS ngay lúc này. Vui lòng thử lại sau !", // message
+									null,            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							});
+						}						
+					},            // callback to invoke with index of button pressed
+					'Thông tin',           // title
+					['OK','Huỷ bỏ']     // buttonLabels
+				);
+								
+			}
+			
+			var showPromptCode = function(){
+				navigator.notification.prompt(
+					'Nhập mã đăng nhập được gửi về số điện thoại của bạn',  // message
+					function(results){
+						if(results.buttonIndex === 1)
+						{
+							var PhoneNumber = $("#txtPhoneNumber").val();
+							var SecurityCode = results.input1;
+							if(SecurityCode === null || SecurityCode === ""){
+								navigator.notification.alert(
+									'Vui lòng nhập mã đăng nhập đã được gửi về tin nhắn!', // message
+									function(){
+										showPromptCode();
+									},            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							}						
+							SpinnerPlugin.activityStart("Vui lòng chờ...", { dimBackground: true });
+							$.post(HOST_DATA + "Pharmacy/Checksmslogincode", { PhoneNumber : PhoneNumber, UserLoginCode : SecurityCode } , function( data ) {
+								if(data.success)
+								{
+									SpinnerPlugin.activityStop();
+									var storage = window.localStorage;
+									storage.setItem("IsLogin", true);
+									storage.setItem("TenNguoiDung", data.TEN_NGUOI_DUNG);
+									window.location = "dashboard.html";
+								}
+								else
+								{
+									SpinnerPlugin.activityStop();
+									navigator.notification.alert(
+										"Đã có lỗi xảy ra. Vui lòng thử lại sau !", // message
+										null,            // callback to invoke with index of button pressed
+										'Lỗi',           // title
+										['OK']     // buttonLabels
+									);
+									return;
+								}
+							}).fail(function() {
+								SpinnerPlugin.activityStop();
+								navigator.notification.alert(
+									"Đã có lỗi xảy ra. Vui lòng thử lại sau !", // message
+									null,            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							});
+						}
+					},                  // callback to invoke
+					'Xác thực',            // title
+					['Xác nhận','Huỷ bỏ'],             // buttonLabels
+					''                 // defaultText
+				);
+			}
+			
+        </script>
+    </body>
+</html>

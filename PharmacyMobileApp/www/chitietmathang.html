@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/jquery.ellipsis.js"></script>    
+        <script src="js/jquery.number.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script src="js/connection.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+
+		<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+		<div id="main">
+			<div id="header-view">
+				<nav class="navbar navbar-default navbar-fixed-top">
+				  <div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <img alt="Brand" src="img/logo.png" style="height: 37px;margin-top: 5px;margin-left: 5px;">
+					</div>
+				  </div><!-- /.container-fluid -->
+				</nav>
+				<script type="text/javascript">
+					$(function() {						
+						$( "#header-view" ).load( "header.html");
+					});
+				</script>
+			</div>
+			
+			<div id="bottombar-view">
+				<nav class="bottombar">
+					<div class="bottombar-header">
+						<ul class="bottombar-nav">
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-home"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-users"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-envelope-o"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-bell-o"></i></a></li>
+							<li>
+								<a class="add-active-click" href="javascript:void(0);" data-toggle="dropdown">
+									<i class="fa fa-2x fa-ellipsis-h"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dLabel" style="left: auto; right: 5px; top: auto; bottom: 100%; margin-bottom: 5px; color: #f00;">
+									<li class="dropdown-li"><a href="dashboard.html"><i class="fa fa-home"></i> Trang chủ</a></li> 
+									<li role="separator" class="dropdown-li divider"></li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" class="logoutButton">
+											<i class="fa fa-sign-out"></i> Đăng xuất
+										</a>
+									</li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" onClick="ExitApp();">
+											<i class="fa fa-power-off"></i> Thoát
+										</a>
+									</li>
+							  	</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				
+				<script type="text/javascript">
+					$(function() {						
+						$( "#bottombar-view" ).load( "bottombar.html");
+					});
+				</script>
+			</div>
+
+
+			<div class="main-content">
+				<section class="tb-section" style="padding-bottom: 0; padding-top: 0;">
+					<div class="tb-container" style="background-color: #fff !important;">
+						<div style="background-color: #fff;">
+							<div style="padding: 5px 10px 15px;">
+								<div class="headerbar-list" style="background-color: #ffcc66; color: #000;">
+									<div class="pull-left">Mã mặt hàng #MOB236813</div>
+									<div class="pull-right">Số đăng ký: VN-126731</div>
+									<div class="clearfix"></div>
+								</div>
+								<div style="padding: 5px 10px; line-height: 24px; margin-top: 0; border: 1px solid #fc6; border-top: none;">
+									<div><strong>pms-BACTAMOX 1g</strong></div>
+									<div class="text-danger">Giá bán lẻ: 30.000 đ / gói</div>
+									<div>Hoạt chất: AMOXICILLIN 875mg, SULBACTAM 125 mg </div>
+								</div>
+							</div>
+							
+							<div style="padding: 5px 10px 15px;">
+								<div class="headerbar-list" style="background-color: #ffcc66; color: #000;">
+									Thông tin hàng
+								</div>
+								<div style="padding: 5px 10px; line-height: 24px; margin-top: 0; border: 1px solid #fc6; border-top: none;">
+									<div>
+										<div class="text-danger"><strong>Chỉ định:</strong></div>
+										<div>
+											<p>Điều trị các trường hợp nhiễm khuẩn do các vi khuẩn nhạy cảm gây ra, bao gồm:</p>
+											<ul>
+												<li>Nhiễm khuẩn tai mũi họng: viêm amidan, viêm xoang, viêm tai giữa.</li>
+												<li>Nhiễm khuẩn đường hô hấp dưới: viêm phế quản cấp và mạn, viêm phổi phế quản.</li>
+												<li>Nhiễm khuẩn đường tiết niệu - sinh dục: viêm bàng quang, viêm niệu đạo, viêm bể thận ,nhiễm khuẩn đường sinh dục nữ.</li>
+												<li>Nhiễm khuẩn da và mô mềm: mụn nhọt, áp xe, nhiễm khuẩn vết thương.</li>
+												<li>Nhiễm khuẩn xương và khớp.</li>
+												<li>Nhiễm khuẩn nha khoa: áp xe ổ răng.</li>
+												<li>Nhiễm khuẩn khác: nhiễm khuẩn do nạo thai, nhiễm khuẩn máu sản khoa, nhiễm khuẩn trong ổ bụng.</li>
+											</ul>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Chống chỉ định:</strong></div>
+										<div>
+											<ul>
+												<li>Mẫn cảm với thành phần thuốc hoặc kháng sinh nhóm penicillin, cephalosporin.</li>
+												<li>Tiền sử bệnh đường tiêu hoá, đặc biệt là viêm loét đại tràng, bệnh Crohn hoặc viêm ruột kết do kháng sinh.</li>
+												<li>Tiền sử vàng da hoặc rối loạn chức năng gan.</li>
+												<li>Bệnh nhân suy thận với độ thanh thải Creatinin CrCl &lt; 30 ml/phút.</li>
+												<li>Trẻ em dưới 12 tuổi.</li>
+											</ul>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Cảnh báo & thận trọng:</strong></div>
+										<div>
+											<ul>
+												<li>Các dấu hiệu và triệu chứng vàng da ứ mật tuy ít xảy ra khi dùng thuốc nhưng có thể nặng. Tuy nhiên những triệu chứng đó thường hồi phục và sẽ hết sau 6 tuần ngừng điều trị.</li>
+												<li>Các phản ứng quá mẫn trầm trọng và đôi khi dẫn đến tử vong (dạng phản vệ) đã được báo cáo xảy ra trên bệnh nhân dùng các kháng sinh penicillin.</li>
+												<li>Đã có xuất hiện ban đỏ (đa dạng) đi kèm với sốt nổi hạch (tăng bạch cầu đơn nhân nhiễm khuẩn) ở những bệnh nhân dùng Amoxicillin. Nên tránh sử dụng thuốc nếu nghi ngờ có tăng bạch cầu đơn nhân nhiễm khuẩn.</li>
+												<li>Dùng thuốc kéo dài đôi khi làm phát triển các vi khuẩn kháng thuốc.</li>
+												<li>Phụ nữ mang thai: nghiên cứu thực nghiệm trên quá trình sinh sản của động vật (chuột) đã chứng minh khi dùng chế phẩm theo đường uống không gây dị dạng. Tuy nhiên, vì còn ít kinh nghiệm về dùng chế phẩm cho người mang thai, nên cần tránh sử dụng thuốc ở người mang thai nhất là trong 3 tháng đầu của thai kỳ, trừ trường hợp cần thiết do thầy thuốc chỉ định.</li>
+												<li>Phụ nữ cho con bú: amoxicillin và sulbactam được bài tiết vào sữa mẹ, phải thận trọng khi dùng thuốc cho người mẹ đang cho con bú.</li>
+												<li>Tác động của thuốc lên khả năng lái xe và vận hành máy móc: Thuốc không gây ảnh hưởng đến khả năng lái xe hoặc vận hành máy móc.</li>
+											</ul>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Liều lượng & cách dùng</strong></div>
+										<div>
+											<p>Uống thuốc trước hay sau bữa ăn đều được.</p>
+											<p>Dùng trong trường hợp nhiễm khuẩn nặng.</p>
+											<p>Người lớn và trẻ em trên 12 tuổi: liều thông thường 1 viên x 2 lần/ngày.</p>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Tác dụng không mong muốn</strong></div>
+										<div>
+											<p>Thường gặp: tiêu chảy, ngứa, ngoại ban.</p>
+											<p>Ít gặp: buồn nôn, nôn, tăng bạch cầu ái toan, phát ban, viêm gan và vàng da ứ mật, tăng transaminase.</p>
+											<p>Hiếm gặp: phản ứng phản vệ, phù Quincke, giảm nhẹ tiểu cầu, giảm bạch cầu, thiếu máu tan huyết, viêm đại tràng giả mạc, hội chứng Stevens - Johnson, ban đỏ đa dạng, viêm da bong, hoại tử biểu bì do ngộ độc, viêm thận kẽ.</p>
+											<p>Thông báo cho bác sĩ những tác dụng không mong muốn gặp phải khi sử dụng thuốc.</p>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Quá liều và cách xử lý</strong></div>
+										<div>
+											<p>Thuốc ít gây ra tai biến, vì được dung nạp tốt ngay cả ở liều cao. Những phản ứng cấp xảy ra phụ thuộc vào tình trạng quá mẫn của từng cá thể. Trong trường hợp dùng quá liều, ngưng dùng thuốc ngay và sử dụng các biện pháp hỗ trợ, có thể gây nôn, rửa dạ dày nếu mới quá liều. Không có thuốc giải độc đặc hiệu. Amoxicillin và Sulbactam có thể được loại bỏ bằng thẩm phân máu.</p>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Bảo quản</strong></div>
+										<div>
+											<p>dưới 30<sup>0</sup>C, tránh ẩm và ánh sáng.</p>
+										</div>
+									</div>
+									
+									<div>
+										<div class="text-danger"><strong>Ghi chú</strong></div>
+										<div>
+											<p><strong>ĐỂ XA TẦM TAY TRẺ EM.</strong></p>
+											<p><strong>NẾU CẦN BIẾT THÊM THÔNG TIN, XIN HỎI Ý KIẾN BÁC SĨ.</strong></p>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</section>
+			</div>
+			
+		</div>
+        <script src="js/application.js"></script>        
+        <script src="js/autosize.min.js"></script>
+        <script>
+			var application = new applicationJS();	
+        </script>
+        
+    </body>
+</html>

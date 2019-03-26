@@ -16,6 +16,12 @@ namespace PharmacyMobile
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Configs", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Default0",
+                url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Pharmacy", action = "LoadDieuHangData", id = UrlParameter.Optional }
             );
 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/jquery.ellipsis.js"></script>    
+        <script src="js/jquery.number.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script src="js/connection.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+
+		<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+		<div id="main">
+			<div id="header-view">
+				<nav class="navbar navbar-default navbar-fixed-top">
+				  <div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <img alt="Brand" src="img/logo.png" style="height: 37px;margin-top: 5px;margin-left: 5px;">
+					</div>
+				  </div><!-- /.container-fluid -->
+				</nav>
+				<script type="text/javascript">
+					$(function() {						
+						$( "#header-view" ).load( "header.html");
+					});
+				</script>
+			</div>
+			
+			<div id="bottombar-view">
+				<nav class="bottombar">
+					<div class="bottombar-header">
+						<ul class="bottombar-nav">
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-home"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-users"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-envelope-o"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-bell-o"></i></a></li>
+							<li>
+								<a class="add-active-click" href="javascript:void(0);" data-toggle="dropdown">
+									<i class="fa fa-2x fa-ellipsis-h"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dLabel" style="left: auto; right: 5px; top: auto; bottom: 100%; margin-bottom: 5px; color: #f00;">
+									<li class="dropdown-li"><a href="dashboard.html"><i class="fa fa-home"></i> Trang chủ</a></li> 
+									<li role="separator" class="dropdown-li divider"></li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" class="logoutButton">
+											<i class="fa fa-sign-out"></i> Đăng xuất
+										</a>
+									</li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" onClick="ExitApp();">
+											<i class="fa fa-power-off"></i> Thoát
+										</a>
+									</li>
+							  	</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				
+				<script type="text/javascript">
+					$(function() {						
+						$( "#bottombar-view" ).load( "bottombar.html");
+					});
+				</script>
+			</div>
+
+
+			<div class="main-content">
+				<section class="tb-section" style="padding-bottom: 0; padding-top: 0;">
+					<div class="tb-container" style="background-color: #e9e9e9 !important;">
+						<div style="padding: 0 3px; background-color: #fff;">
+							<table style="width: 100%;">
+								<tr style="cursor: pointer;" onClick="window.location = 'datcauhoi.html';">
+									<td style="width: 1%; padding: 3px 3px !important; vertical-align: top;">
+										<img src="img/newQuestionIcon.jpg" style="height: 50px;" />
+									</td>
+									<td style=" padding: 3px 3px !important;">
+										<span style="width: 100%; border: none; resize: none; font-size: 14px; font-family: 'Tahoma';">
+										 	Bạn đang muốn chia sẻ điều gì ?
+										 </span>
+									</td>
+									<td style="width: 1%; padding: 3px 0px !important; vertical-align: top;">
+										<button style="border: none; background-color: transparent; padding: 0 5px;">
+											<img src="img/AddnewQuestionIcon.jpg" style="height: 50px;" />
+										</button>
+									</td>
+								</tr>
+							</table>
+						</div>
+						
+						<div class="list-questions" style="margin-top: 20px;">
+							<div class="question-item">
+								<div style="padding: 5px 5px;">
+									<table style="width: 100%;">
+										<tr>
+											<td style="width: 1%; padding: 3px 3px !important; vertical-align: top; border-bottom: none !important;">
+												<img src="img/user.png" style="height: 48px; width: 48px; border-radius: 50%;" />
+											</td>
+											<td style=" padding: 3px 3px !important; border-bottom: none !important;">
+												<div style="color: #006766;"><strong>Hoàng Hà Duy</strong></div>
+												<div style="color: #999; font-size: 12px;">49 phút trước</div>
+											</td>
+											<td style="color: #999 !important; width: 1%; padding: 3px 15px 3px 0 !important; border-bottom: none !important;">
+												<i class="fa fa-chevron-down"></i>
+											</td>
+										</tr>
+									</table>
+									
+									<div style="padding: 5px 3px; margin-top: 2px;">
+										<div class="text-center" style="background-color: #ffcc66; color: #856a3b; padding: 8px 0; font-size: 16px;">
+											<strong>Hỏi một câu hỏi</strong>
+										</div>
+										<div class="content-quest" style="color: #006766; padding: 10px; border: 1px solid #efefef; border-top: none; font-size: 16px;">
+											Em hay bị ra mồ hôi ở lòng bàn tay và lòng bàn chân. Mỗi khi phải tập trung làm những công việc gì tỉ mỉ như viết lách, vẽ hình, cần tay khô ráo thì lòng bàn tay em ra mồ hôi nhiều. Ðôi khi hồi hộp hay chuẩn bị phải bắt tay với một người cấp lớn hơn, tay em cũng bổng dưng ra nhiều mồ hôi. Nhưng ngược lại có khi giở những trang giấy của một cuốn sách hay tờ báo, cần tay ẩm ướt một tí thì nói lại khô ran, khó làm được việc đó.
+										</div>
+									</div>
+									
+									<div style="padding: 3px 3px; margin-top: 0px;">
+										<div class="pull-left">
+											1 Trả lời
+										</div>
+										<div class="pull-right">
+											0 Chia sẻ
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								
+								<div style="background-color: #f9f9f9; padding: 10px 0;">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-rss"></i> Theo dõi
+											</div>
+											<div class="col-xs-4 text-center">
+												<a href="traloicauhoi.html"><i class="fa fa-comments"></i> Trả lời</a>
+											</div>
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-share-square-o"></i> Chia sẻ
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="question-item">
+								<div style="padding: 5px 5px;">
+									<table style="width: 100%;">
+										<tr>
+											<td style="width: 1%; padding: 3px 3px !important; vertical-align: top; border-bottom: none !important;">
+												<img src="img/user.png" style="height: 48px; width: 48px; border-radius: 50%;" />
+											</td>
+											<td style=" padding: 3px 3px !important; border-bottom: none !important;">
+												<div style="color: #006766;"><strong>Ngô Bá Hùng</strong></div>
+												<div style="color: #999; font-size: 12px;">49 phút trước</div>
+											</td>
+											<td style="color: #999 !important; width: 1%; padding: 3px 15px 3px 0 !important; border-bottom: none !important;">
+												<i class="fa fa-chevron-down"></i>
+											</td>
+										</tr>
+									</table>
+									
+									<div style="padding: 5px 3px; margin-top: 2px;">
+										<div class="text-center" style="background-color: #ffcc66; color: #856a3b; padding: 8px 0; font-size: 16px;">
+											<strong>Hỏi một câu hỏi</strong>
+										</div>
+										<div class="content-quest" style="color: #006766; padding: 10px; border: 1px solid #efefef; border-top: none; font-size: 16px;">
+											Thỉnh thoảng mắt bên trái tôi bị giật liên hồi, có thể co giật nhiều lần trong ngày, sau đó một thời gian, có thể vài ngày, vài tuần, mắt trái tôi lại bi giật và chỉ duy nhất mắt bên trái vùng mi dưới.
+										</div>
+									</div>
+									
+									<div style="padding: 3px 3px; margin-top: 0px;">
+										<div class="pull-left">
+											1 Trả lời
+										</div>
+										<div class="pull-right">
+											0 Chia sẻ
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								
+								<div style="background-color: #f9f9f9; padding: 10px 0;">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-rss"></i> Theo dõi
+											</div>
+											<div class="col-xs-4 text-center">
+												<a href="traloicauhoi.html"><i class="fa fa-comments"></i> Trả lời</a>
+											</div>
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-share-square-o"></i> Chia sẻ
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							<div class="question-item">
+								<div style="padding: 5px 5px;">
+									<table style="width: 100%;">
+										<tr>
+											<td style="width: 1%; padding: 3px 3px !important; vertical-align: top; border-bottom: none !important;">
+												<img src="img/user.png" style="height: 48px; width: 48px; border-radius: 50%;" />
+											</td>
+											<td style=" padding: 3px 3px !important; border-bottom: none !important;">
+												<div style="color: #006766;"><strong>Nguyễn Hữu Tuân</strong></div>
+												<div style="color: #999; font-size: 12px;">2 giờ trước</div>
+											</td>
+											<td style="color: #999 !important; width: 1%; padding: 3px 15px 3px 0 !important; border-bottom: none !important;">
+												<i class="fa fa-chevron-down"></i>
+											</td>
+										</tr>
+									</table>
+									
+									<div style="padding: 5px 3px; margin-top: 2px;">
+										<div class="text-center" style="background-color: #ffcc66; color: #856a3b; padding: 8px 0; font-size: 16px;">
+											<strong>Hỏi một câu hỏi</strong>
+										</div>
+										<div class="content-quest" style="color: #006766; padding: 10px; border: 1px solid #efefef; border-top: none; font-size: 16px;">
+											<p>Cháu muốn biết về bệnh đột quỵ</p>
+
+											<p>Theo cháu được biết bệnh xảy ra khi máu không kịp thời chuyển lên não làm cho người bệnh đột ngột ngừng thở, dẫn đến bị liệt toàn thân hoặc nguy hiểm hơn là tử vong. Xin bác sĩ cho cháu biết những dấu hiệu nhận biết và cách ứng phó khi xảy ra đột quỵ. Có loại thuốc nào cần bổ sung hàng ngày để làm giảm nguy cơ mắc bệnh?</p>
+
+											<p>Chân thành cảm ơn bác sĩ."</p>
+										</div>
+									</div>
+									
+									<div style="padding: 3px 3px; margin-top: 0px;">
+										<div class="pull-left">
+											1 Trả lời
+										</div>
+										<div class="pull-right">
+											0 Chia sẻ
+										</div>
+										<div class="clearfix"></div>
+									</div>
+								</div>
+								
+								<div style="background-color: #f9f9f9; padding: 10px 0;">
+									<div class="container-fluid">
+										<div class="row">
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-rss"></i> Theo dõi
+											</div>
+											<div class="col-xs-4 text-center">
+												<a href="traloicauhoi.html"><i class="fa fa-comments"></i> Trả lời</a>
+											</div>
+											<div class="col-xs-4 text-center">
+												<i class="fa fa-share-square-o"></i> Chia sẻ
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							
+							
+						</div>
+					</div>
+				</section>
+			</div>
+			
+		</div>
+        <script src="js/application.js"></script>        
+        <script src="js/autosize.min.js"></script>
+        <script>
+			var application = new applicationJS();	
+			autosize(document.getElementById("newStatus"));
+        </script>
+        
+    </body>
+</html>

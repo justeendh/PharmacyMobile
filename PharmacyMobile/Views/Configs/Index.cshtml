@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Configuration";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    List<SelectListItem> lstSelectItem = ViewBag.lstSelectItem as List<SelectListItem>;
+    List<SelectListItem> lstSelectItemSecondPort = ViewBag.lstSelectItemSecondPort as List<SelectListItem>;
+}
+
+@using (Html.BeginForm("Sendsubmit", "configs", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-sm-12">
+            <!-- Timeline Widget -->
+            <div class="widget">
+                <div class="widget-extra themed-background-dark">
+                    <h3 class="widget-content-light">
+                        <strong>
+                            @ViewBag.Title
+                        </strong>
+                    </h3>
+                </div>
+                <div class="widget-extra" style="height: auto !important;">
+                    <div style="padding: 10px 0;">
+                        <!-- General Data Content -->
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        @if (TempData.ContainsKey("Success"))
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="fa fa-check-circle"></i> Thành công</h4>
+                                <div>
+                                    @TempData["Success"]
+                                </div>
+                            </div>
+                        }
+
+                        @if (TempData.ContainsKey("Failed"))
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="fa fa-check-circle"></i> Lỗi</h4>
+                                <div>
+                                    @TempData["Failed"]
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            
+                        </div>
+                        <div class="form-group">
+                            <button type="button" onclick="SpinnerPlugin.activityStart('Vui lòng chờ...', { dimBackground: true });" 
+                                    class="btn btn-lg btn-success">
+                                <i class="fa fa-floppy-o"></i> LƯU LẠI
+                            </button>
+                            <button type="reset" class="btn btn-lg btn-warning"><i class="fa fa-repeat"></i> NHẬP LẠI</button>
+                        </div>
+                        <!-- END General Data Content -->
+                    </div>
+                </div>
+            </div>
+            <!-- END Timeline Widget -->
+        </div>
+    </div>
+}
+
+<script type="text/javascript" src="cordova.js"></script>
+        <script>
+            document.addEventListener('deviceready', function() {
+				document.addEventListener('backbutton', function(e){
+					navigator.notification.confirm(
+						"Thoát ứng dụng ?",  // message
+						function(buttonIndex){
+							if(buttonIndex === 2){
+								var storage = window.localStorage;
+								storage.removeItem("IsLogin");
+								navigator.app.exitApp();
+							}
+						},         // callback
+						'Xác nhận thoát',            // title
+						['Không','Thoát']                  // buttonName
+					);
+				}, false);
+                if (window.cordova && StatusBar)
+        		{
+        			StatusBar.backgroundColorByHexString('#1f723d');
+        		}
+                var heightBottomBar = $(".form-login").first().height();
+                var margin_top = ($(document).height() - heightBottomBar)/2 - 50;
+                if(margin_top < 0) margin_top = 0;
+                $('.form-login').css("margin-top", margin_top);
+            }, false);
+            // Listen for orientation changes
+            window.addEventListener("orientationchange", function() {
+                var heightBottomBar = $(".form-login").first().height();
+                var margin_top = ($(document).height() - heightBottomBar)/2 - 50;
+                if(margin_top < 0) margin_top = 0;
+                $('.form-login').css("margin-top", margin_top);
+            }, false);
+
+            // Listen for resize changes
+            window.addEventListener("resize", function() {
+                var heightBottomBar = $(".form-login").first().height();
+                var margin_top = ($(document).height() - heightBottomBar)/2 - 50;
+                if(margin_top < 0) margin_top = 0;
+                $('.form-login').css("margin-top", margin_top);
+            }, false);
+			
+			function Login()
+			{
+				var PhoneNumber = $("#txtPhoneNumber").val();
+				if(PhoneNumber === null || PhoneNumber === ""){
+					navigator.notification.alert(
+						'Vui lòng nhập số điện thoại của bạn!', // message
+						null,            // callback to invoke with index of button pressed
+						'Lỗi',           // title
+						['OK']     // buttonLabels
+					);
+					return;
+				}
+				navigator.notification.alert(
+					"Chúng tôi sẽ gửi cho bạn một mã gồm 6 số để thực hiện đăng nhập. Vui lòng kiểm tra tin nhắn trên điện thoại của quý khách", // message
+					function(){
+						SpinnerPlugin.activityStart("Vui lòng chờ...", { dimBackground: true });
+						$.post(HOST_DATA + "Pharmacy/Sendsmslogin", { PhoneNumber : PhoneNumber } , function( data ) {
+							if(data.success)
+							{								
+								SpinnerPlugin.activityStop();
+								showPromptCode();
+							}
+							else
+							{
+								SpinnerPlugin.activityStop();
+								navigator.notification.alert(
+									"Rất tiếc chúng tôi không thể gửi SMS ngay lúc này. Vui lòng thử lại sau !", // message
+									null,            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							}
+						}).fail(function() {
+							SpinnerPlugin.activityStop();
+							navigator.notification.alert(
+								"Rất tiếc chúng tôi không thể gửi SMS ngay lúc này. Vui lòng thử lại sau !", // message
+								null,            // callback to invoke with index of button pressed
+								'Lỗi',           // title
+								['OK']     // buttonLabels
+							);
+							return;
+						});
+					},            // callback to invoke with index of button pressed
+					'Thông tin',           // title
+					['OK']     // buttonLabels
+				);
+								
+			}
+			
+			var showPromptCode = function(){
+				navigator.notification.prompt(
+					'Nhập mã đăng nhập được gửi về số điện thoại của bạn',  // message
+					function(results){
+						if(results.buttonIndex === 1)
+						{
+							var PhoneNumber = $("#txtPhoneNumber").val();
+							var SecurityCode = results.input1;
+							if(SecurityCode === null || SecurityCode === ""){
+								navigator.notification.alert(
+									'Vui lòng nhập mã đăng nhập đã được gửi về tin nhắn!', // message
+									function(){
+										showPromptCode();
+									},            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							}						
+							SpinnerPlugin.activityStart("Vui lòng chờ...", { dimBackground: true });
+							$.post(HOST_DATA + "Pharmacy/Checksmslogincode", { PhoneNumber : PhoneNumber, UserLoginCode : SecurityCode } , function( data ) {
+								if(data.success)
+								{
+									SpinnerPlugin.activityStop();
+									var storage = window.localStorage;
+									storage.setItem("IsLogin", true);
+									storage.setItem("TenNguoiDung", data.TEN_NGUOI_DUNG);
+									window.location = "chinhgia.html";
+								}
+								else
+								{
+									SpinnerPlugin.activityStop();
+									navigator.notification.alert(
+										"Đã có lỗi xảy ra. Vui lòng thử lại sau !", // message
+										null,            // callback to invoke with index of button pressed
+										'Lỗi',           // title
+										['OK']     // buttonLabels
+									);
+									return;
+								}
+							}).fail(function() {
+								SpinnerPlugin.activityStop();
+								navigator.notification.alert(
+									"Đã có lỗi xảy ra. Vui lòng thử lại sau !", // message
+									null,            // callback to invoke with index of button pressed
+									'Lỗi',           // title
+									['OK']     // buttonLabels
+								);
+								return;
+							});
+						}
+					},                  // callback to invoke
+					'Xác thực',            // title
+					['Xác nhận','Huỷ bỏ'],             // buttonLabels
+					''                 // defaultText
+				);
+			}
+			
+            $(document).ready(function(){
+				$('.bottombar .bottombar-nav li a').ellipsis();
+				var storage = window.localStorage;
+				var IsLogin = storage.getItem("IsLogin"); // Pass a key name to get its value.	
+				if(IsLogin)
+				{
+					window.location = "chinhgia.html";
+					return;
+				}
+                var heightBottomBar = $(".form-login").first().height();
+                var margin_top = ($(document).height() - heightBottomBar)/2 - 50;
+                if(margin_top < 0) margin_top = 0;
+                $('.form-login').css("margin-top", margin_top);
+				
+            });
+        </script>
+
+
+@if (IsPost)
+{
+    <script>
+        window.history.pushState("", "Configuration", '/admin/manage/infomations');
+    </script>
+}
+

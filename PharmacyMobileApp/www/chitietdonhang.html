@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/jquery.ellipsis.js"></script>
+    <script src="js/jquery.number.js"></script>
+    <script src="scripts/accounting.min.js"></script>
+    <script src="js/jquery.tmpl.js"></script>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/vuePagination.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/connection.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Hello World</title>
+</head>
+<body>
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main">
+        <div id="header-view">
+            <app-header></app-header>
+        </div>
+
+        <bottom-menu></bottom-menu>
+
+        <div class="main-content">
+            <section class="tb-section" style="padding-bottom: 0; padding-top: 0;">
+                <div class="tb-container" style="background-color: #fff !important;">
+                    <div style="background-color: #fff;">
+                        <table class="table table-responsive">
+                            <tr>
+                                <td style="color: #f00 !important;" class="text-danger"><strong>ĐƠN HÀNG #{{cartCode}}</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="color: #f00 !important;"><strong>KHÁCH HÀNG #{{userInfo.TEN_CARD_CLIENT}}</strong></td>
+                            </tr>
+                        </table>
+
+                        <div style="padding: 5px 10px 0px;">
+                            <div style="margin-bottom: 3x;">
+                                <div v-if="cartItem.STA_ORDER_CLIENT" class="alert alert-success fade in">
+                                    <div class="text-center">Đơn hàng này đã được giao xong</div>
+                                </div>
+                                <div v-if="!cartItem.STA_ORDER_CLIENT" class="alert alert-warning fade in">
+                                    <div class="text-center">Đơn hàng này đang chờ xử lý</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding: 5px 10px 15px;">
+                            <div class="headerbar-list">
+                                CHI TIẾT ĐƠN HÀNG GỒM
+                            </div>
+                            <div style="background-color: #ffcc66;">
+                                <div id="lstMatHangDonHang" class="prdCart" style="line-height: 18px;">
+                                    <div id="cartItemContainer">
+                                        <div style="position: relative;" v-if="cartDetail.length > 0" v-for="(product, index) in cartDetail">
+
+                                            <div class="prdCartItem">
+                                                <div><strong>{{index+1}}. {{productMap[product.KEY_MAT_HANG]}}</strong></div>
+                                                <div class="text-left" style="margin-top: 5px;">
+                                                    <div style="display: inline-block;position: relative;top: -3px;margin-right: 10px;">Số lượng đặt: <strong>{{product.SO_LUONG_HANG}}</strong> </div>
+                                                    <div style="display: inline-block;position: relative;top: 0;margin-left: 10px;">{{product.DON_VI_TINH}}</div>
+                                                </div>
+                                                <div>Đơn giá: <strong class="formatnumber">{{product.DON_GIA_HANG | currency}}</strong> / Thành tiền: <strong class="text-danger formatnumber">{{product.DON_GIA_HANG * product.SO_LUONG_HANG | currency}}</strong></div>
+                                            </div>
+                                        </div>
+                                        <div v-if="cartDetail.length === 0" style="background-color: #efefef; padding: 50px 0;">
+                                            <div class="text-center">
+                                                Vui lòng chọn mặt hàng
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="prdCartItem" style="padding-top: 10px; padding-bottom: 10px;">
+                                        <div class="text-left">
+                                            <strong>Tổng: {{cartDetail.length}} mặt hàng</strong>
+                                            <div class="text-right pull-right">
+                                                <strong class="text-danger">{{totalAmount  | currency }}</strong>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="padding: 5px 10px 20px; display: none;">
+                            <div style="margin-bottom: 10px;">
+                                <button class="btn btn-lg btn-block" style="background-color: #ffcc66; border-color: #ffcc66;" v-on:click="cancelCart">
+                                    HUỶ ĐƠN HÀNG NÀY
+                                </button>
+                            </div>
+                            <div class="text-center">
+                                (Quý khách cần kiểm tra chính xác mặt hàng và số lượng trước khi gửi)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+
+    <script src="scripts/LayoutComponent.js"></script>
+    <script src="js/application.js"></script>
+    <script src="js/autosize.min.js"></script>
+    <script>
+        var application = new applicationJS();
+        const urlParams = new URLSearchParams(window.location.search);
+        const cartId = urlParams.get('id');
+        var app = new Vue({
+            el: "#main",
+            data: {
+                cartCode: "",
+                userInfo: {},
+                cartItem: {},
+                cartDetail: [],
+                productMap: {},
+                queryProduct: "",
+                productList: []
+            },
+            mounted() {
+                let keyOrder = cartId;
+                let urlGetDetailData = HOST_DATA + "Pharmacy/GetDetailCart?id=" + keyOrder;
+                let moduleInstance = this;
+                $.ajax({
+                    async: false,
+                    type: "GET",
+                    url: urlGetDetailData,
+                    contentType: "application/json",
+                    success: function (response) {
+                        if (response.success) {
+                            for (let i = 0; i < response.productMap.length; i++) {
+                                moduleInstance.productMap[response.productMap[i].KEY_MAT_HANG] = response.productMap[i].TEN_MAT_HANG;
+                            }
+                            moduleInstance.cartCode = response.result.COD_ORDER_CLIENT;
+                            moduleInstance.userInfo = response.CLIENT_INFO;
+                            moduleInstance.cartItem = response.result;
+                            moduleInstance.cartDetail = response.orderGoods;
+                        }
+                    }
+                });
+
+            },
+            computed : {
+                totalAmount: function() {
+                    if (!this.cartDetail) {
+                        return 0;
+                    }
+                    return this.cartDetail.reduce(function (totalAmount, value) {
+                        return totalAmount + parseInt(value.DON_GIA_HANG * value.SO_LUONG_HANG);
+                    }, 0);
+                }
+            },
+            updated() {
+
+            },
+            methods: {
+                cancelCart() {
+
+                }
+            }
+        });
+    </script>
+    <style>
+        .pagination {
+            margin: 0px 0;
+        }
+    </style>
+</body>
+</html>

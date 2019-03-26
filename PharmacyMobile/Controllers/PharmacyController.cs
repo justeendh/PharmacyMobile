@@ -1,44 +1,15 @@
-﻿using Newtonsoft.Json;
-using Sonetwsv.common;
+﻿using Sonetwsv.common;
 using Sonetwsv.Mobilews;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.Data;
-using System.Threading;
-using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 
 namespace PharmacyMobile.Controllers
 {
-    public class PharmacyController : Controller
+    public class PharmacyController : PharmacyExtController
     {
-        private static string DBHost = ConfigurationManager.AppSettings["DBHost"];
-        private static string DBUser = ConfigurationManager.AppSettings["DBUser"];
-        private static string DBPassword = ConfigurationManager.AppSettings["DBPassword"];
-        private static string DBName = ConfigurationManager.AppSettings["DBName"];
-
-        public ActionResult Login(string Username, string Password)
-        {
-            try
-            {
-                if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
-                {
-                    string TenNguoiDung = "User Login";
-                    //if (Username != null && Password != null && Username == "admin" && Password == "admin")
-                    if (Username != null && Password != null && cls_USERS_MOBILE.Login(Username, Password, out TenNguoiDung))
-                    {
-                        return Json(new { success = true, TEN_NGUOI_DUNG = TenNguoiDung });
-                    }
-                }
-                return Json(new { success = false });
-            }
-            catch (Exception ex)
-
-            { return Json(new { success = false, messenge = ex.Message + " " + ex.StackTrace   }); }
-        }
 
         public ActionResult LoadDataDoanhThu()
         {
@@ -790,12 +761,50 @@ namespace PharmacyMobile.Controllers
                     foreach (DataRow item in dt.Rows)
                     {
                         lstResult.Add(new {
-                            KEY_CARD_CLIENT = (item["KEY_CARD_CLIENT"]), COD_CARD_CLIENT = (item["COD_CARD_CLIENT"]), TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"], TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"]
-                                            ,ADD_CARD_CLIENT = item["ADD_CARD_CLIENT"]
+                            KEY_CARD_CLIENT = (item["KEY_CARD_CLIENT"]),
+                            COD_CARD_CLIENT = (item["COD_CARD_CLIENT"]),
+                            TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"],
+                            TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"],
+                            ADD_CARD_CLIENT = item["ADD_CARD_CLIENT"]
                         });
                     }
                 }
                 return Json(new { success = true, result = lstResult }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LoadDataKhachHangByCode(string code)
+        {
+            if (clsConnect.DB_OpenConnection(DBHost, DBName, DBUser, DBPassword))
+            {
+                if (string.IsNullOrEmpty(code)) code = "";
+                DataTable dt = cls_CARDS_CLIENT.mClient_FilterClient(code);
+                object ObjResult = null;
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow item in dt.Rows)
+                    {
+                        if(item["COD_CARD_CLIENT"].ToString().CompareTo(code) == 0)
+                        {
+                            ObjResult = new
+                            {
+                                KEY_CARD_CLIENT = (item["KEY_CARD_CLIENT"]),
+                                TEN_CARD_CLIENT = item["TEN_CARD_CLIENT"],
+                                COD_CARD_CLIENT = (item["COD_CARD_CLIENT"]),
+                                SEX_CARD_CLIENT = (item["SEX_CARD_CLIENT"]),
+                                DAYBIR_CARD_CLIENT = ((DateTime)(item["BIR_CARD_CLIENT"])).Day,
+                                MONTHBIR_CARD_CLIENT = ((DateTime)(item["BIR_CARD_CLIENT"])).Month,
+                                YEARBIR_CARD_CLIENT = ((DateTime)(item["BIR_CARD_CLIENT"])).Year,
+                                TEL_CARD_CLIENT = item["TEL_CARD_CLIENT"],
+                                EML_CARD_CLIENT = item["EML_CARD_CLIENT"],
+                                ADD_CARD_CLIENT = item["ADD_CARD_CLIENT"],
+                                ORG_CARD_CLIENT = item["ORG_CARD_CLIENT"]
+                            };
+                            return Json(new { success = true, result = ObjResult }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                }
             }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
@@ -841,10 +850,21 @@ namespace PharmacyMobile.Controllers
                 List<string> Errors = item.CheckValid();
                 if (Errors.Count == 0)
                 {
-                    int result = cls_CARDS_CLIENT.mClient_InsertNew(Guid.NewGuid(), item.code, item.hoten, item.gioitinh, item.ngaysinh, item.dienthoai, item.email,
+                    if(Request.Form["isedit"].ToLower().CompareTo("false") == 0)
+                    {
+                        int result = cls_CARDS_CLIENT.mClient_InsertNew(Guid.NewGuid(), item.code, item.hoten, item.gioitinh, item.ngaysinh, item.dienthoai, item.email,
                                                                     item.diachi, item.congty, 0, 0, 0, DateTime.Now, 1, true);
-                    if (result == 0) return Json(new { success = true });
-                    else return Json(new { success = false, msg = "Đã có lỗi xảy ra (SAVE_FAIL). Vui lòng kiểm tra dữ liệu và thử lại." });
+                        if (result == 0) return Json(new { success = true });
+                        else return Json(new { success = false, msg = "Đã có lỗi xảy ra (SAVE_FAIL). Vui lòng kiểm tra dữ liệu và thử lại." });
+                    }
+                    else
+                    {
+                        Guid KeyKhachHang = new Guid(Request.Form["KeyKhachHang"]);
+                        int result = cls_CARDS_CLIENT.mClient_UpdateOne(KeyKhachHang, item.code, item.hoten, item.gioitinh, item.ngaysinh, item.dienthoai, item.email,
+                                                                    item.diachi, item.congty, DateTime.Now, 1, true);
+                        if (result == 0) return Json(new { success = true });
+                        else return Json(new { success = false, msg = "Đã có lỗi xảy ra (SAVE_FAIL). Vui lòng kiểm tra dữ liệu và thử lại." });
+                    }
                 }
                 else
                 {
@@ -1055,197 +1075,4 @@ namespace PharmacyMobile.Controllers
         }
     }
 
-    public class KHACH_HANG
-    {
-        public string code;
-        public string hoten;
-        public string gioitinh;
-        public DateTime? ngaysinh;
-        public string dienthoai;
-        public string email;
-        public string diachi;
-        public string congty;
-
-        public bool ParseValue(NameValueCollection FormData)
-        {
-            try
-            {
-                string code = FormData["code"];
-                if (!string.IsNullOrEmpty(code)) this.code = code;
-                string hoten = FormData["hoten"];
-                if (!string.IsNullOrEmpty(hoten)) this.hoten = hoten;
-                string gioitinh = FormData["gioitinh"];
-                if (!string.IsNullOrEmpty(gioitinh)) this.gioitinh = gioitinh;
-                string ngaysinh = FormData["ngaysinh"];
-                string thangsinh = FormData["thangsinh"];
-                string namsinh = FormData["namsinh"];
-                if (!string.IsNullOrEmpty(ngaysinh) && !string.IsNullOrEmpty(thangsinh) && !string.IsNullOrEmpty(namsinh))
-                {
-                    this.ngaysinh = new DateTime(int.Parse(namsinh), int.Parse(thangsinh), int.Parse(ngaysinh));
-                }
-                else this.ngaysinh = null;
-                string dienthoai = FormData["dienthoai"];
-                if (!string.IsNullOrEmpty(dienthoai)) this.dienthoai = dienthoai;
-                string email = FormData["email"];
-                if (!string.IsNullOrEmpty(email)) this.email = email;
-                string diachi = FormData["diachi"];
-                if (!string.IsNullOrEmpty(diachi)) this.diachi = diachi;
-                string congty = FormData["congty"];
-                if (!string.IsNullOrEmpty(congty)) this.congty = congty;
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public List<string> CheckValid()
-        {
-            List<string> lstError = new List<string>();
-            if (code == null) lstError.Add("Mã code");
-            if (hoten == null) lstError.Add("Họ tên khách hàng");
-            //if (ngaysinh == null) lstError.Add("Ngày sinh");
-            if (gioitinh == null) lstError.Add("Giới tính");
-            if (dienthoai == null) lstError.Add("Số điệnt thoại");
-
-            return lstError;
-        }
-    }
-
-    public class MAT_HANG
-    {
-        public Guid? KEY_MAT_HANG;
-        public Guid? loaihang;
-        public Guid? kieuhang;
-        public Guid? nhomhang;
-        public Guid? xuatxu;
-        public Guid? hanghang;
-        public string mamathang;
-        public string tenmathang;
-        public string masanxuat;
-        public string donvitinh;
-        public string donvitinhlon;
-        public decimal? soquydoi;
-        public decimal? tilegiamgia;
-        public decimal? hesothue;
-        public decimal? tiletienlai;
-        public bool? hangkedon;
-        public bool? hangdacbiet;
-        public bool? hangkigui;
-        public decimal? dongiamua;
-        public decimal? giabanle;
-        public decimal? giabansi;
-        public string ghichu;
-        public string hamluong;
-        public string hoatchat;
-        public decimal? tontoithieu;
-        public decimal? tilemogioi;
-        public decimal? tileghidiem;
-        public bool? cosudung;
-        public DateTime? DATE_DONG_BO;
-        public int? VERS_DONG_BO;
-        public bool? FLAG_DONG_BO;
-
-        public bool ParseValue(NameValueCollection FormData)
-        {
-            try
-            {
-                string loaihang = FormData["loaihang"];
-                if (!string.IsNullOrEmpty(loaihang)) this.loaihang = new Guid(loaihang);
-                string kieuhang = FormData["kieuhang"];
-                if (!string.IsNullOrEmpty(kieuhang)) this.kieuhang = new Guid(kieuhang);
-                string nhomhang = FormData["nhomhang"];
-                if (!string.IsNullOrEmpty(nhomhang)) this.nhomhang = new Guid(nhomhang);
-                string xuatxu = FormData["xuatxu"];
-                if (!string.IsNullOrEmpty(xuatxu)) this.xuatxu = new Guid(xuatxu);
-                string hanghang = FormData["hangsanxuat"];
-                if (!string.IsNullOrEmpty(hanghang)) this.hanghang = new Guid(hanghang);
-                string mamathang = FormData["mamathang"];
-                if (!string.IsNullOrEmpty(mamathang)) this.mamathang = mamathang;
-                string tenmathang = FormData["tenmathang"];
-                if (!string.IsNullOrEmpty(tenmathang)) this.tenmathang = tenmathang;
-                string masanxuat = FormData["masanxuat"];
-                if (!string.IsNullOrEmpty(masanxuat)) this.masanxuat = masanxuat;
-                string donvitinh = FormData["donvitinh"];
-                if (!string.IsNullOrEmpty(donvitinh)) this.donvitinh = donvitinh;
-                string donvitinhlon = FormData["donvitinhlon"];
-                if (!string.IsNullOrEmpty(donvitinhlon)) this.donvitinhlon = donvitinhlon;
-                string soquydoi = FormData["soquydoi"];
-                if (!string.IsNullOrEmpty(soquydoi)) this.soquydoi = decimal.Parse(soquydoi);
-                string tilegiamgia = FormData["tilegiamgia"];
-                if (!string.IsNullOrEmpty(tilegiamgia)) this.tilegiamgia = decimal.Parse(tilegiamgia);
-                string hesothue = FormData["hesothue"];
-                if (!string.IsNullOrEmpty(hesothue)) this.hesothue = decimal.Parse(hesothue);
-                string tiletienlai = FormData["tiletienlai"];
-                if (!string.IsNullOrEmpty(tiletienlai)) this.tiletienlai = decimal.Parse(tiletienlai);
-                string hangkedon = FormData["hangkedon"];
-                if (!string.IsNullOrEmpty(hangkedon)) this.hangkedon = bool.Parse(hangkedon);
-                string hangdacbiet = FormData["hangdacbiet"];
-                if (!string.IsNullOrEmpty(hangdacbiet)) this.hangdacbiet = bool.Parse(hangdacbiet);
-                else this.hangdacbiet = false;
-                string hangkigui = FormData["hangkigui"];
-                if (!string.IsNullOrEmpty(hangkigui)) this.hangkigui = bool.Parse(hangkigui);
-                else this.hangkigui = false;
-                string dongiamua = FormData["dongiamua"];
-                if (!string.IsNullOrEmpty(dongiamua)) this.dongiamua = decimal.Parse(dongiamua);
-                else this.hangdacbiet = false;
-                string giabanle = FormData["giabanle"];
-                if (!string.IsNullOrEmpty(giabanle)) this.giabanle = decimal.Parse(giabanle);
-                string giabansi = FormData["giabansi"];
-                if (!string.IsNullOrEmpty(giabansi)) this.giabansi = decimal.Parse(giabansi);
-                string ghichu = FormData["ghichu"];
-                if (!string.IsNullOrEmpty(ghichu)) this.ghichu = ghichu; else this.ghichu = "";
-                string hamluong = FormData["hamluong"];
-                if (!string.IsNullOrEmpty(hamluong)) this.hamluong = hamluong; else this.hamluong = "";
-                string hoatchat = FormData["hoatchat"];
-                if (!string.IsNullOrEmpty(hoatchat)) this.hoatchat = hoatchat; else this.hoatchat = "";
-                string tontoithieu = FormData["tontoithieu"];
-                if (!string.IsNullOrEmpty(tontoithieu)) this.tontoithieu = decimal.Parse(tontoithieu);
-                string tilemogioi = FormData["tilemogioi"];
-                if (!string.IsNullOrEmpty(tilemogioi)) this.tilemogioi = decimal.Parse(tilemogioi);
-                string tileghidiem = FormData["tileghidiem"];
-                if (!string.IsNullOrEmpty(tileghidiem)) this.tileghidiem = decimal.Parse(tileghidiem);
-                string cosudung = FormData["cosudung"];
-                if (!string.IsNullOrEmpty(cosudung)) this.cosudung = bool.Parse(cosudung);
-                else this.cosudung = false;
-
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public List<string> CheckValid()
-        {
-            List<string> lstError = new List<string>();
-            if(loaihang == null) lstError.Add("Loại mặt hàng");
-            if (kieuhang == null) lstError.Add("Kiểu mặt hàng");
-            if (nhomhang == null) lstError.Add("Nhóm mặt hàng");
-            if (xuatxu == null) lstError.Add("Xuất xứ mặt hàng");
-            if (hanghang == null) lstError.Add("Hãng sản xuất mặt hàng");
-            if (mamathang == null) lstError.Add("Mã mặt hàng");
-            if (tenmathang == null) lstError.Add("Tên mặt hàng");
-            if (masanxuat == null) lstError.Add("Mã sản xuất");
-            if (donvitinh == null) lstError.Add("Đơn vị tính");
-            if (donvitinhlon == null) lstError.Add("Đơn vị tính lớn");
-            if (soquydoi == null) lstError.Add("Số quy đổi");
-            if (tilegiamgia == null) lstError.Add("Tỉ lệ giảm giá");
-            if (hesothue == null) lstError.Add("Hệ số thuế");
-            if (tiletienlai == null) lstError.Add("Tỉ lệ tiền lãi");
-
-            if (dongiamua == null) lstError.Add("Đơn giá mua");
-            if (giabanle == null) lstError.Add("Giá bán lẻ");
-            if (giabansi == null) lstError.Add("Giá bán sĩ");
-            if (tontoithieu == null) lstError.Add("Tồn tối thiểu");
-            if (tilemogioi == null) lstError.Add("Tỉ lệ mô giới");
-            if (tileghidiem == null) lstError.Add("Tỉ lệ ghi điểm");
-
-            return lstError;
-        }
-    }
-        
 }

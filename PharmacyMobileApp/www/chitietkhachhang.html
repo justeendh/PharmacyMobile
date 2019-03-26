@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/connection.js"></script>
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script src="js/jquery.ellipsis.js"></script>    
+        <script src="js/jquery.number.js"></script>
+        <script src="js/plugins.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+        <style>
+
+        h2 {
+            color: #345F90;
+            font-size: 24px;
+            line-height: 1.25;
+            font-family: "Roboto Slab", serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .tab-slider--nav {
+            width: 100%;
+        }
+
+        .tab-slider--tabs {
+            display: block;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            position: relative;
+            overflow: hidden;
+            background: #fff;
+            height: 35px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .tab-slider--trigger {
+            width: 33.3333%;
+            display: block;
+            position: relative;
+            float: left;
+            font-size: 12px;
+            line-height: 1;
+            font-weight: bold;
+            color: #ffffff;
+            background-color: #33aa5d;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 12px 20px;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+            -webkit-transition: color 250ms ease-in-out;
+            transition: color 250ms ease-in-out;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .tab-slider--trigger:after {
+            content: "";
+            width: 100%;
+            height: 4px;
+            position: absolute;
+            z-index: -1;
+            bottom: 0;
+            left: 0;
+        }
+
+        .tab-slider--trigger.active:after{
+            background-color: #fff;
+            z-index: -1;
+        }
+
+        .tab-slider--trigger.active {
+            color: #fff;
+            z-index: 3;
+        }
+
+        .tb-section {
+            padding-bottom: 0;
+        }
+
+        </style>
+    </head>
+    <body>
+		<div class="modal fade" id="LoadingAnimate" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+					<div class="modal-content">
+						  <div class="modal-body">
+								<div class="text-center">
+									<img src="img/loading-image.svg" style="max-width: 100%;"/>
+									<h4>Đang tải dữ liệu...</h4>
+								</div>
+						  </div>
+						  <div class="modal-footer">
+								<button type="button" class="btn btn-danger freesize btn-block" data-dismiss="modal">Đóng</button>
+						  </div>
+					</div>
+			  </div>
+		</div>
+		<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+		<div id="main">
+			<nav class="navbar navbar-default navbar-fixed-top">
+			  <div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#">
+					<img alt="Brand" src="img/app-logo.png" style="height: 30px;">
+				  </a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				  <ul class="nav navbar-nav">
+                      <li><a href="dashboard.html">Trang chủ</a></li>
+					<li><a href="javascript:void(0);" onClick="Logout();">Đăng xuất</a></li>
+				  </ul>
+				</div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+
+			<nav class="bottombar">
+				<div class="bottombar-header">
+					<ul class="bottombar-nav">
+						<li><a class="add-active-click active" href="dashboard.html">Danh mục</a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<div class="main-content">
+                <div>
+                    <section class="tb-container">
+						<table class="table table-responsive tb-data"  style="font-size: 18px;">
+							<tr>
+								<td  id="TenMatHangh4" colspan="2" style="vertical-align: middle;">
+									<h4 class="text-danger" ><strong class="txtTenKhachHang text-nowrap" style="overflow: hidden;">
+										-------------
+									</strong></h3>
+									<h4 class="text-danger" ><strong class="txtMaKhachHang">
+										-------------
+									</strong></h4>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Giới tính:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtGioiTinh">-</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Ngày sinh:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtNgaySinh">-</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Điện thoại:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtDienThoai">-</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Email:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtEmail">-</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Địa chỉ:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtDiaChi">-</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Công ty:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtCongTy">0</strong>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									<strong>Điểm tích luỹ:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtDiemTichLuy">0</strong>
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									<strong>Điểm đã đổi:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtDiemDaDoi">0</strong>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<strong>Ngày sinh nhật:</strong>
+								</td>
+								<td class="nonbreak">
+									<strong class="txtDiemConLai">0</strong>
+								</td>
+							</tr>
+						</table>
+
+					</section>
+			</div>
+		</div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript">
+			
+			function caclSize()
+			{
+				var heightBottomBar = $(".bottombar").first().height();
+				$('.tb-container').height($(window).height()- (50) - heightBottomBar);
+			}
+			
+			function LoadDataChiTietKhachHang()
+			{
+				$("#LoadingAnimate").modal("show");
+				$.getJSON( HOST_DATA + "Pharmacy/LoadDataChiTietKhachHang?id=" + getUrlParameter("id") , function( data ) {
+					$(".txtTenKhachHang").text(data.result.TEN_CARD_CLIENT);
+					$(".txtMaKhachHang").text(data.result.COD_CARD_CLIENT);
+					$(".txtGioiTinh").text(data.result.SEX_CARD_CLIENT);
+					$(".txtNgaySinh").text(data.result.BIR_CARD_CLIENT);
+					$(".txtDienThoai").text(data.result.TEL_CARD_CLIENT);
+					$(".txtEmail").text(data.result.EML_CARD_CLIENT);
+					$(".txtDiaChi").text(data.result.ADD_CARD_CLIENT);
+					$(".txtCongTy").text(data.result.ORG_CARD_CLIENT);
+					$(".txtDiemTichLuy").text(data.result.BAN_CARD_CLIENT);
+					$(".txtDiemDaDoi").text(data.result.DOI_CARD_CLIENT);
+					$(".txtDiemConLai").text(data.result.CON_CARD_CLIENT);
+					$('.formatnumber').number( true, 0, ',', '.' );
+					$("#LoadingAnimate").modal("hide");
+				});
+			}
+			
+
+			var app = {
+				// Application Constructor
+				initialize: function() {
+					document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+					// Listen for orientation changes
+					window.addEventListener("orientationchange", function() {
+						$("#TenMatHangh4").css("max-width", $(window).width()-15);
+						caclSize();
+					}, false);
+
+					// Listen for resize changes
+					window.addEventListener("resize", function() {
+						caclSize();
+					}, false);
+				},
+
+				// deviceready Event Handler
+				//
+				// Bind any cordova events here. Common events are:
+				// 'pause', 'resume', etc.
+				onDeviceReady: function() {
+					document.addEventListener('backbutton', function(e){
+						if (confirm("Thoát ứng dụng ?"))
+						{
+							var storage = window.localStorage;
+							storage.removeItem("IsLogin");
+							navigator.app.exitApp();
+						}
+						else
+						{
+							
+						}
+					}, false);
+					if (window.cordova && StatusBar)
+					{
+						StatusBar.backgroundColorByHexString('#1f723d');
+					}
+					caclSize();
+				}
+			};
+
+			app.initialize();
+
+			$(document).ready(function(){
+				$("#TenMatHangh4").css("max-width", $(window).width()-15);
+				CheckLogin();
+				$('.bottombar .bottombar-nav li a').ellipsis();
+				$(".tab-slider--body").hide();
+				$(".tab-slider--body:first").show();
+				caclSize();
+				$(".add-active-click").on("click", function(){
+					$(".add-active-click").removeClass("active");
+					$(this).addClass("active");
+				});
+				caclSize();
+				LoadDataChiTietKhachHang();
+			});
+
+			
+		</script>
+    </body>
+</html>

@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PharmacyMobile</RootNamespace>
     <AssemblyName>PharmacyMobile</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -26,6 +26,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,25 +46,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Sonetwsv, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Sonetwsv.dll</HintPath>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -117,6 +126,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -129,11 +139,14 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\PharmacyExt\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PharmacyExtController.cs" />
+    <Compile Include="WebCommonFunctions.cs" />
+    <Compile Include="Controllers\ConfigsController.cs" />
     <Compile Include="Controllers\PharmacyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -141,79 +154,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
-    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
-    <Content Include="bin\PharmacyMobile.dll" />
-    <Content Include="bin\PharmacyMobile.pdb" />
-    <Content Include="bin\Release\PublishOutput\bin\Antlr3.Runtime.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\Antlr3.Runtime.pdb" />
-    <Content Include="bin\Release\PublishOutput\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\Microsoft.Web.Infrastructure.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\PharmacyMobile.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\PharmacyMobile.pdb" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\csc.exe" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\vbc.exe" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\Release\PublishOutput\bin\Sonetwsv.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Helpers.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Http.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Mvc.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Optimization.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.Razor.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.WebPages.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\Release\PublishOutput\bin\WebGrease.dll" />
-    <Content Include="bin\Release\PublishOutput\favicon.ico" />
-    <Content Include="bin\Release\PublishOutput\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="bin\Release\PublishOutput\Global.asax" />
-    <Content Include="bin\roslyn\csc.exe" />
-    <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
-    <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
-    <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
-    <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
-    <Content Include="bin\roslyn\vbc.exe" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\Sonetwsv.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.dll" />
-    <Content Include="bin\System.Net.Http.Formatting.xml" />
-    <Content Include="bin\System.Web.Helpers.dll" />
-    <Content Include="bin\System.Web.Helpers.xml" />
-    <Content Include="bin\System.Web.Http.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.dll" />
-    <Content Include="bin\System.Web.Http.WebHost.xml" />
-    <Content Include="bin\System.Web.Http.xml" />
-    <Content Include="bin\System.Web.Mvc.dll" />
-    <Content Include="bin\System.Web.Mvc.xml" />
-    <Content Include="bin\System.Web.Optimization.dll" />
-    <Content Include="bin\System.Web.Optimization.xml" />
-    <Content Include="bin\System.Web.Razor.dll" />
-    <Content Include="bin\System.Web.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
-    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
-    <Content Include="bin\System.Web.WebPages.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.dll" />
-    <Content Include="bin\System.Web.WebPages.Razor.xml" />
-    <Content Include="bin\System.Web.WebPages.xml" />
-    <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -228,36 +170,61 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Configs\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <ProjectReference Include="..\GSM_Modem\ModemModule\ModemModule.csproj">
+      <Project>{139825e9-efcc-472c-a012-d7515814906c}</Project>
+      <Name>ModemModule</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LocaleResource\LocaleResource.csproj">
+      <Project>{649ed662-497b-4cc5-8c48-b93cd25dda68}</Project>
+      <Name>LocaleResource</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\CommonLibs.csproj">
+      <Project>{44754dbb-3a19-4892-ab02-ea085333f259}</Project>
+      <Name>CommonLibs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SocketCommunicate\SocketCommunicate.csproj">
+      <Project>{14FFF27E-2610-4962-BECD-7A68CF51BE8A}</Project>
+      <Name>SocketCommunicate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sonetwsv\Sonetwsv.csproj">
+      <Project>{e44f5780-dd85-43e0-bf09-e82090e752e0}</Project>
+      <Name>Sonetwsv</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="bin\PharmacyMobile.dll.config" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\Release\PublishOutput\bin\roslyn\VBCSCompiler.exe.config" />
-    <Content Include="bin\Release\PublishOutput\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="bin\Release\PublishOutput\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="bin\Release\PublishOutput\fonts\glyphicons-halflings-regular.woff" />
-    <None Include="bin\Release\PublishOutput\packages.config" />
-    <Content Include="bin\Release\PublishOutput\Views\Shared\Error.cshtml" />
-    <Content Include="bin\Release\PublishOutput\Views\Shared\_Layout.cshtml" />
-    <Content Include="bin\Release\PublishOutput\Views\Web.config" />
-    <Content Include="bin\Release\PublishOutput\Views\_ViewStart.cshtml" />
-    <Content Include="bin\Release\PublishOutput\Web.config" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <None Include="Project_Readme.html" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

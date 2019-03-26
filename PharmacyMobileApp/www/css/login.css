@@ -1,0 +1,252 @@
+@font-face {
+    font-family: 'BlondeScript';
+    src: url('fonts/FS BlondeScript-Regular.otf');
+}
+
+@font-face {
+    font-family: 'Maphylla';
+    src: url('fonts/SVN-Maphylla.otf');
+}
+
+@font-face {
+    font-family: 'avenida';
+    src: url('fonts/utm-avenida.ttf');
+}
+
+@font-face {
+    font-family: 'CashFont';
+    src: url('/css/fonts/CashFont.eot?#iefix') format('embedded-opentype'), url('/css/fonts/CashFont.woff') format('woff'), url('/css/fonts/CashFont.ttf') format('truetype'), url('/css/fonts/CashFont.svg#CashFont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Laconic-Regular';
+    src: url('/css/fonts/Laconic-Regular.eot?#iefix') format('embedded-opentype'), url('/css/fonts/Laconic-Regular.otf') format('opentype'), url('/css/fonts/Laconic-Regular.woff') format('woff'), url('/css/fonts/Laconic-Regular.ttf') format('truetype'), url('/css/fonts/Laconic-Regular.svg#Laconic-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BreeSerif';
+    src: url('/css/fonts/BreeSerif.eot?#iefix') format('embedded-opentype'), url('/css/fonts/BreeSerif.otf') format('opentype'), url('/css/fonts/BreeSerif.woff') format('woff'), url('/css/fonts/BreeSerif.ttf') format('truetype'), url('/css/fonts/BreeSerif.svg#BreeSerif') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    background: url('../img/bg_login.png');
+	font-family: 'BreeSerif';
+}
+
+.form-login{
+    padding: 20px;
+
+}
+
+/* form starting stylings ------------------------------- */
+.group-google-input 			  { 
+    position: relative;
+    margin-bottom: 15px;
+    padding-top: 20px;
+}
+.group-google-input input 				{
+  font-size:20px !important;
+  padding: 2px 0 8px 0;
+  display:block;
+  width:100%;
+  border:none;
+  color: #fff;
+  font-family: 'Tahoma';
+  border-bottom:1px solid #fff;
+  background-color: transparent;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+.group-google-input label{
+  color:#fff; 
+  font-size:20px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  font-family: 'Tahoma';
+  left:0px;
+  top:25px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.group-google-input input:focus ~ label, .group-google-input input:valid ~ label 		{
+  top: 5px;
+  left: 0;
+  font-size:10px;
+  color:#fff;
+}
+
+/* BOTTOM BARS ================================= */
+.group-google-input .bar 	{ position:relative; display:none; width:100%; }
+.group-google-input .bar:before, .group-google-input .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#5264AE; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.group-google-input .bar:before {
+  left:50%;
+}
+.group-google-input .bar:after {
+  right:50%; 
+}
+
+/* active state */
+.group-google-input input:focus ~ .bar:before, .group-google-input input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.group-google-input .highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+.group-google-input input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+
+label.checkbox-custom{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	border: 2px solid #fff;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	position: relative;
+	text-align: center;
+}
+
+label.checkbox-custom > input[type=checkbox]{
+	display: none;
+}
+
+label.checkbox-custom > input[type=checkbox] + i.fa.fa-check{
+	display: inline-block;
+	transform: scale(0);
+	opacity: 0;
+	color: #fff;
+	transition: all 0.3s;
+}
+
+label.checkbox-custom > input[type=checkbox]:checked + i.fa.fa-check{
+	opacity: 1;
+	transform: scale(1);
+}
+
+input[type="password"], input[type="text"] , input[type="tel"] {
+  display: block;
+  margin: 0;
+  width: 100%;
+  font-family: sans-serif;
+  font-size: 18px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+}
+input[type="password"]:focus, input[type="text"]:focus, input[type="tel"]:focus {
+  outline: none;
+}
+
+.input-login-ctn{
+	background-color: #fff;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.input-login-ctn .style-2.input-username{
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.input-login-ctn .style-2{	
+	margin: 0;
+}
+
+.style-2 input[type="password"], .style-2 input[type="text"], .style-2 input[type="tel"] {
+  	padding: 10px;
+  	border: none;
+  	text-align: center;
+  	transition: border 0.3s;
+	font-family: 'BreeSerif';
+}
+.style-2 input[type="password"]:focus,
+.style-2 input[type="password"].focus,.style-2 input[type="text"]:focus,
+.style-2 input[type="text"].focus,.style-2 input[type="tel"]:focus,
+.style-2 input[type="tel"].focus  {
+	
+}
+
+.btn-login {
+	background-color:#44c767;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 10px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:10px 15px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+    text-transform: uppercase;
+	font-family: 'BreeSerif';
+}
+.btn-login:hover {
+    outline: none;
+}
+.btn-login:active {
+	position:relative;
+	top:1px;
+    outline: none;
+}
+
+.btn.active, .btn:active {
+    background-image: none;
+    outline: none  !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: !important;
+}

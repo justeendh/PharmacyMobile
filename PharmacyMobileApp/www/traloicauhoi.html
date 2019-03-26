@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+       <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+        <script src="js/plugins.js"></script>
+        <script src="js/jquery.ellipsis.js"></script>    
+        <script src="js/jquery.number.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+		<script src="js/connection.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Hello World</title>
+    </head>
+    <body>
+
+		<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+		<div id="main">
+			<div id="header-view">
+				<nav class="navbar navbar-default navbar-fixed-top">
+				  <div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+					  <img alt="Brand" src="img/logo.png" style="height: 37px;margin-top: 5px;margin-left: 5px;">
+					</div>
+				  </div><!-- /.container-fluid -->
+				</nav>
+				<script type="text/javascript">
+					$(function() {						
+						$( "#header-view" ).load( "header.html");
+					});
+				</script>
+			</div>
+			
+			<div id="bottombar-view">
+				<nav class="bottombar">
+					<div class="bottombar-header">
+						<ul class="bottombar-nav">
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-home"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-users"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-envelope-o"></i></a></li>
+							<li><a class="add-active-click" href="dashboard.html"><i class="fa fa-2x fa-bell-o"></i></a></li>
+							<li>
+								<a class="add-active-click" href="javascript:void(0);" data-toggle="dropdown">
+									<i class="fa fa-2x fa-ellipsis-h"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dLabel" style="left: auto; right: 5px; top: auto; bottom: 100%; margin-bottom: 5px; color: #f00;">
+									<li class="dropdown-li"><a href="dashboard.html"><i class="fa fa-home"></i> Trang chủ</a></li> 
+									<li role="separator" class="dropdown-li divider"></li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" class="logoutButton">
+											<i class="fa fa-sign-out"></i> Đăng xuất
+										</a>
+									</li>
+									<li class="dropdown-li">
+										<a href="javascript:void(0);" onClick="ExitApp();">
+											<i class="fa fa-power-off"></i> Thoát
+										</a>
+									</li>
+							  	</ul>
+							</li>
+						</ul>
+					</div>
+				</nav>
+				
+				<script type="text/javascript">
+					$(function() {						
+						$( "#bottombar-view" ).load( "bottombar.html");
+					});
+				</script>
+			</div>
+
+
+			<div class="main-content">
+				<section class="tb-section" style="padding-bottom: 0; padding-top: 0;">
+					<div id="contentCtn" class="tb-container" style="background-color: #fff !important; position: relative;">						
+						<div class="list-questions">
+							<div class="question-item">
+								<div style="padding: 5px 5px;">
+									<table style="width: 100%;">
+										<tr>
+											<td style="width: 1%; padding: 3px 3px !important; vertical-align: top; border-bottom: none !important;">
+												<img src="img/user.png" style="height: 48px; width: 48px; border-radius: 50%;" />
+											</td>
+											<td style=" padding: 3px 3px !important; border-bottom: none !important;">
+												<div style="color: #006766;"><strong>Hoàng Hà Duy</strong></div>
+												<div style="color: #999; font-size: 12px;">49 phút trước</div>
+											</td>
+											<td style="color: #999 !important; width: 1%; padding: 3px 15px 3px 0 !important; border-bottom: none !important;">
+												<i class="fa fa-chevron-down"></i>
+											</td>
+										</tr>
+									</table>
+									
+									<div style="padding: 5px 3px; margin-top: 2px;">
+										<div style="background-color: #f9f9f9; padding: 10px 0;">
+											<div class="container-fluid">
+												<div class="row">
+													<div class="col-xs-4 text-center">
+														<i class="fa fa-calendar-o"></i> Có hẹn khám
+													</div>
+													<div class="col-xs-4 text-center">
+														<i class="fa fa-home"></i> Tại nhà riêng
+													</div>
+													<div class="col-xs-4 text-center">
+														<i class="fa fa-check"></i> Xác nhận
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="content-quest" style="color: #006766; padding: 10px; border: 1px solid #efefef; border-top: none; font-size: 16px;">
+											Em hay bị ra mồ hôi ở lòng bàn tay và lòng bàn chân. Mỗi khi phải tập trung làm những công việc gì tỉ mỉ như viết lách, vẽ hình, cần tay khô ráo thì lòng bàn tay em ra mồ hôi nhiều. Ðôi khi hồi hộp hay chuẩn bị phải bắt tay với một người cấp lớn hơn, tay em cũng bổng dưng ra nhiều mồ hôi. Nhưng ngược lại có khi giở những trang giấy của một cuốn sách hay tờ báo, cần tay ẩm ướt một tí thì nói lại khô ran, khó làm được việc đó.
+										</div>
+										<div class="text-center" style="background-color: #ffcc66; padding: 8px 10px; font-size: 16px;">
+											<div class="pull-left">
+												<strong>Huỷ bỏ</strong>
+											</div>
+											<div class="pull-right">
+												<strong>Trả lời</strong>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+										<div style="margin-top: 10px; margin-bottom: 130px;">
+											<textarea id="newStatus" rows="1" placeholder="Nhập câu trả lời vào đây.." 
+											style="width: 100%; border: none; resize: none; font-size: 14px; font-family: 'Tahoma';"></textarea>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+													
+							
+							
+						</div>
+						
+						
+									
+						<div style="position: fixed; bottom: 45.6px; left: 0; width: 100%;">
+							<ul class="upContentAction">
+								<li><a href="javascript:void(0);"><i class="text-danger fa fa-users"></i>&nbsp;&nbsp;Chọn bác sĩ tư vấn</a></li>
+								<li><a href="javascript:void(0);"><i class="text-danger fa fa-bell-o"></i>&nbsp;&nbsp;Bạn mong muốn điều trị?</a></li>
+								<li><a href="javascript:void(0);"><i class="text-danger fa fa-calendar-o"></i>&nbsp;&nbsp;Đặt lịch hẹn với bác sĩ</a></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</div>
+			
+		</div>
+        <script src="js/application.js"></script>        
+        <script src="js/autosize.min.js"></script>
+        <script>
+			var application = new applicationJS();	
+			autosize(document.getElementById("newStatus"));
+			var objDiv = document.getElementById("contentCtn");
+			$(function(){
+				$("#newStatus").on('change keyup paste', function(){
+					objDiv.scrollTop = objDiv.scrollHeight;
+				});
+			});
+        </script>
+        
+    </body>
+</html>

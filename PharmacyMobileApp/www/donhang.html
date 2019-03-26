@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/ModuleViewer.js"></script>
+    <script src="js/jquery.ellipsis.js"></script>
+    <script src="js/jquery.number.js"></script>
+    <script src="js/jquery.tmpl.js"></script>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/vuePagination.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script src="js/connection.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/plugins.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Mặt hàng</title>
+</head>
+<body>
+
+    <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+    <div id="main">
+        <div id="header-view">
+            <app-header></app-header>
+        </div>
+
+        <bottom-menu></bottom-menu>
+
+        <div class="main-content">
+            <div style="padding: 10px;position: fixed;z-index: 9999;top: -1px; right: 5px;">
+                <button class="btn btn-success btn-lg"
+                        style="padding: 4px 14px;outline: none !important;background-color: #398011;border-color: #398011;top: -1px;"
+                        type="button"
+                        onClick="window.location = 'themdonhang.html';">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <div id="pageTitle" class="pageTitle">
+                <strong style="margin-top: 5px;" class="text-danger pull-left">ĐƠN ĐẶT HÀNG</strong>
+                <div class="pull-right" style="display: none;">
+                    <button id="btnPickTime" type="button" class="btn btn-sm" style="background-color: #00c4ff;color: #fff;">
+                        <strong>Tất cả <i class="fa fa-angle-down"></i></strong>
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <section class="list-section" style="padding-bottom: 0; overflow-y: auto;">
+                <div class="cart-data-ctn" id="donhang_data">
+                    <a :href="'chitietdonhang.html?id=' + order.KEY_ORDER_CLIENT" class="cart-item-data" v-for="order in listOrders">
+                        <div class="order-title">
+                            <div class="pull-right">
+                                <strong><span class="formatnumber text-danger">{{order.TONG_TIEN_TOAN}}</span></strong>
+                            </div>
+                            <div class="text-nowrap"><strong>{{order.COD_ORDER_CLIENT}}</strong></div>
+                        </div>
+                        <div class="text-nowrap">
+                            Tình trạng đơn hàng:
+                            <span style="font-style: italic;">
+                                <span v-if="order.STA_ORDER_CLIENT">Đã giao hàng</span>
+                                <span v-if="!order.STA_ORDER_CLIENT">Chờ xử lý</span>
+                            </span>
+                        </div>
+                        <div class="text-nowrap">
+                            Thời gian đặt hàng: <span style="font-style: italic;">{{order.DAY_ORDER_CLIENT}}</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="text-center" id="pagingContainer">
+                    <paginate v-model="currentPage" :page-count="pageCount"
+                              :page-range="3"
+                              :click-handler="changePage"
+                              :prev-text="'Prev'"
+                              :next-text="'Next'"
+                              :container-class="'pagination'">
+                    </paginate>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="scripts/LayoutComponent.js"></script>
+    <script src="js/application.js"></script>
+    <script type="text/javascript">
+        var pageTitleHeight = $("#pageTitle").outerHeight();
+        var application = new applicationJS({ titleHeight: pageTitleHeight });
+    </script>
+
+    <script src="scripts/donhang.js"></script>
+
+    <style>
+        .pagination {
+            margin: 0px 0;
+        }
+    </style>
+</body>
+</html>
